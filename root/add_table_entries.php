@@ -56,6 +56,19 @@ $language_file = 'mods/mathjaxbb';
 * The version numbering must otherwise be compatible with the version_compare function - http://php.net/manual/en/function.version-compare.php
 */
 $versions = array(
+	'0.1.1' => array(
+		
+		'config_add' => array(		
+			array('mathjax_enable_post', '1', 0),
+			array('mathjax_enable_pm', '1', 0),
+		),
+		
+		'config_remove' => array(
+			array('mathjax_enabled_post'),
+			array('mathjax_enabled_pm'),
+		),
+			
+	),
 	'0.1.0' => array(
 
 		'config_add' => array(

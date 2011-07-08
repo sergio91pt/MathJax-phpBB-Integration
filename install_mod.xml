@@ -22,13 +22,20 @@ Configuration is done in the "Server Settings" page and can be disabled in the p
 				<email><![CDATA[sergio91pt@gmail.com]]></email>
 			</author>
 		</author-group>
-		<mod-version>0.1.0</mod-version>
+		<mod-version>0.1.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>600</time>
 			<target-version>3.0.8</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-07-08</date>
+				<rev-version>0.1.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Fixed 2 wrong variable names on add_table_entries.php]]></change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-07-08</date>
 				<rev-version>0.1.0</rev-version>
@@ -210,11 +217,11 @@ $lang = array_merge($lang, array(
 			</edit>
 		</open>
 		<php-installer><![CDATA[add_table_entries.php]]></php-installer>
-		<diy-instructions lang="en"><![CDATA[- Delete add_table_entries.php
+		<diy-instructions lang="en"><![CDATA[- Delete add_table_entries.php after executing it.
 
 - Download mathjax, copy it to your phpBB dir and add its path on Server Settings.
 - Or go to Server Settings and enable Mathjax CDN.]]></diy-instructions>
-		<diy-instructions lang="pt"><![CDATA[- Elimine add_table_entries.php
+		<diy-instructions lang="pt"><![CDATA[- Elimine add_table_entries.php depois de o executar.
 
 - Faça download do mathjax, extrai-a para uma pasta dentro a diretoria do phpBB e adicione o caminho nas definições do servidor.
 - Alternativamente, pode simplesmente usar a CDN do Mathjax, ativando essa opção nas defenições do servidor.]]></diy-instructions>
