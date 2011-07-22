@@ -13,7 +13,7 @@
  */
 define('UMIL_AUTO', true);
 define('IN_PHPBB', true);
-$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 
 include($phpbb_root_path . 'common.' . $phpEx);
@@ -38,7 +38,7 @@ $version_config_name = 'mathjax_mod_version_version';
 
 
 // The language file which will be included when installing
-$language_file = 'mods/mathjaxbb';
+$language_file = 'mods/info_acp_mathjax';
 
 
 /*
@@ -56,6 +56,32 @@ $language_file = 'mods/mathjaxbb';
 * The version numbering must otherwise be compatible with the version_compare function - http://php.net/manual/en/function.version-compare.php
 */
 $versions = array(
+	'0.2.0' => array(
+	
+		'table_column_add' => array(
+			array('BBCODES_TABLE', 'is_math', array('BOOL', '0')),
+		),
+	
+		'config_add' => array(
+			array('mathjax_config', 'TeX-AMS-MML_HTMLorMML', 0),
+			array('mathjax_dynamic_load', '1', 0),
+			array('mathjax_enable', '1', 0),
+			array('mathjax_cdn_force_ssl', '0', 0),
+			array('mathjax_mod_version', '0.2.0', 0),
+		),
+	
+		'config_remove' => array(
+			array('mathjax_enable_post'),
+			array('mathjax_enable_pm'),
+			array('mathjax_mod_version_version'),
+		),
+		
+		'module_add' => array(
+			array('acp_mathjax', 'ACP_CAT_DOT_MODS',
+				array('module_basename'	=> 'ACP_MATHJAX'),
+			),
+		),
+	),
 	'0.1.1' => array(
 		
 		'config_add' => array(		
