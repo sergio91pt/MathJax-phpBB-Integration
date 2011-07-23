@@ -31,7 +31,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 // ACP Vars
 	'ACP_MATHJAX'					=> 'MathJax',
-	'ACP_MATHJAX_UPPER'				=> 'MATHJAX',
+	'ACP_MATHJAX_CAT'				=> 'MATHJAX',
 	'ACP_MATHJAX_SETTINGS'			=> 'General Settings',
 	'ACP_MATHJAX_BBCODES'			=> 'BBCode Settings',
 	'ACP_MATHJAX_EXTENSIONS'		=> 'Extensions',
@@ -52,7 +52,7 @@ $lang = array_merge($lang, array(
 	'BBCODE_MODIFIED'			=> 'BBCode modified successfully.',
 	
 
-// 	Page titles and "legend" titles
+// Page titles and "legend" titles
 	'MATHJAX_SETTINGS'				=> 'MathJax General Settings',
 	'MATHJAX_SETTINGS_EXPLAIN'		=> 'Here you can configure phpBB Integration with MathJax.',
 	'MATHJAX_BBCODE'				=> 'Math BBCode Settings',
@@ -73,7 +73,7 @@ $lang = array_merge($lang, array(
 	'MATHJAX_DYNAMIC_LOAD'			=> 'Dynamically load MathJax',
 	'MATHJAX_DYNAMIC_LOAD_EXPLAIN'	=> 'Only loads MathJax if theres a math bbcode to be processed.',
 	
-//BBCode Settings
+// BBCode Settings
 	'MATHJAX_BBCODE_TYPE'				=> 'Math type',
 	'MATHJAX_BBCODE_TAG'				=> 'BBCode tag',
 	'MATHJAX_BBCODE_DISPLAY'			=> 'Display on the editor',
@@ -87,19 +87,15 @@ $lang = array_merge($lang, array(
 	'BBCODE_TAG'						=> 'TAG',
 	'ADD_BBCODE'						=> 'Add a new BBCode', 
 	
-//UMIL
-/**
- * $mod_name = 'MathJax phpBB Integration'; //FIXME Change the $mod_name
- * 
- * Language entries that should exist in the $language_file that will be included:
- * $mod_name
- * 'INSTALL_' . $mod_name
- * 'INSTALL_' . $mod_name . '_CONFIRM'
- * 'UPDATE_' . $mod_name
- * 'UPDATE_' . $mod_name . '_CONFIRM'
- * 'UNINSTALL_' . $mod_name
- * 'UNINSTALL_' . $mod_name . '_CONFIRM'
- */
+// UMIL
+	'MATHJAX'					=> 'Mathjax phpBB Integration',
+	'INSTALL_MATHJAX'			=> 'Install Mathjax Integration',
+	'INSTALL_MATHJAX_CONFIRM'	=> 'Are you sure you want to install this mod? Don\'t forget that, after installing, this mod must be configured and enabled in the ACP before it can be used.',
+	'UPDATE_MATHJAX'			=> 'Update Mathjax Integration',
+	'UPDATE_MATHJAX_CONFIRM'	=> 'Are you ready to update this mod?',
+	'UNINSTALL_MATHJAX'			=> 'Uninstall Mathjax Integration',
+	'UNINSTALL_MATHJAX_CONFIRM'	=> 'Are you sure you want to uninstall this mod? All settings will be removed.',
+
 ));
 
 ?>

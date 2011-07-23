@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<?xml-stylesheet type="text/xsl" href="contrib/modx.prosilver.en.xsl"?>
 <!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
 <mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
 	<header>
-		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<license><![CDATA[GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[MathJax phpBB Integration]]></title>
-		<description lang="en"><![CDATA[Integrates MathJax Javascript Library with phpBB to enable [LaTeX] posts.]]></description>
+		<description lang="en"><![CDATA[Enables users to post math in LaTeX and MathML, using the MathJax Javascript Library.]]></description>
 		<author-notes lang="en"><![CDATA[]]></author-notes>
 		<author-group>
 			<author>
@@ -47,15 +47,13 @@
 	</header>
 	<action-group>
 		<copy>
-			<file from="/root/umil/*.*" to="umil/*.*"/>
-			<file from="root/adm/mods/mathjax_mod_version.php" to="adm/mods/mathjax_mod_version.php"/>
-			<file from="root/adm/style/acp_mathjax.html" to="adm/style/acp_mathjax.html"/>
+			<file from="root/umil/*.*" to="umil/*.*"/>
+			<file from="root/adm/*.*" to="adm/*.*"/>
+			<file from="root/includes/*.*" to="includes/*.*"/>
+			<file from="root/language/en/*.*" to="language/en/*.*"/>
+			<file from="root/styles/prosilver/*.*" to="styles/prosilver/*.*"/>
 			<file from="root/assets/javascript/phpbb2jax-combined-min.js" to="assets/javascript/phpbb2jax-combined-min.js"/>
-			<file from="root/includes/acp/acp_mathjax.php" to="includes/acp/acp_mathjax.php"/>
-			<file from="root/includes/acp/info/acp_mathjax.php" to="includes/acp/info/acp_mathjax.php"/>
-			<file from="root/install/install.php" to="install/install.php"/>
-			<file from="root/language/en/mods/info_acp_mathjax.php" to="language/en/mods/info_acp_mathjax.php"/>
-			<file from="root/styles/prosilver/template/mathjax.html" to="styles/prosilver/template/mathjax.html"/>
+			<file from="root/mathjax_install.php" to="mathjax_install.php"/>
 		</copy>
 		<open src="includes/bbcode.php">
 			<edit>
@@ -128,10 +126,6 @@
 <!-- ENDIF -->]]></action>
 			</edit>
 		</open>
-		<php-installer><![CDATA[install/install.php]]></php-installer>
-		<!--<diy-instructions lang="en"><![CDATA[Remove the install folder.]]></diy-instructions>-->
-		<delete> <!-- Is this only executed in the end? -->
-			<file name="install/"></file>
-		</delete>	
+		<php-installer><![CDATA[mathjax_install.php]]></php-installer>
 	</action-group>
 </mod>
