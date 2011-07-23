@@ -20,7 +20,7 @@ class mathjax_mod_version
 			'title'		=> 'MathJax phpBB Integration',
 			'tag'		=> 'mathjax_mod',
 			'version'	=> '0.2.0',
-			'file'		=> array('raw.github.com', 'sergio91pt', 'MathJax-phpBB-Integration', 'master', 'contrib', 'version_check.xml'),
+			'file'		=> array('dl.dropbox.com', 'u/3790279/', 'version_check.xml'),
 		);
 	}
 }
