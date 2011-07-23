@@ -14,12 +14,13 @@ phpBB modification that enables users to post beautiful math in LaTeX and MathML
 * Works on all major browsers.
 * Renders in native MathML, HTML-CSS fonts and image fonts depending on the browser capabilities.
 
-## Requirements: ##
+### Requirements: ###
 * phpBB 3 (3.0.9 is recommend)
 * The [MathJax library][5] accessible from your forum's path or the ability to accept the [CDN TOS][6].
 
-## Instalation: ##
-* Use [AutoMOD][7] or open install_mod.xml in your browser and follow the instructions (`./contrib/modx.prosilver.en.xsl` is needed for the xml to render properly).
+### Instalation: ###
+* Use [AutoMOD][7] or open install_mod.xml in your browser and follow the instructions
+ * Note: `./contrib/modx.prosilver.en.xsl` is needed for the xml to render properly.
 * Complete the instalation by running the php file mentioned, if any.
 * Adittional languages, themes, optional modifications and update instructions are located in the `contrib/` folder and linked on install_mod.xml.
 * You may check the [wiki][8] for optimization tricks and special use-cases.
@@ -28,8 +29,8 @@ phpBB modification that enables users to post beautiful math in LaTeX and MathML
 * The master branch *is only intended for development purposes* and may be incomplete and/or broken between releases.
  * Please download a [tagged version][9] instead.
 
- [1]: ./contrib/images/phpbb.png
- [2]: ./contrib/images/mathjax.gif
+ [1]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/mathjax.gif
+ [2]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/phpbb.png
  [3]: http://www.phpbb.com
  [4]: http://www.mathjax.org/
  [5]: http://www.mathjax.org/download/
