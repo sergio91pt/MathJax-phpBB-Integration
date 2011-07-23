@@ -19,19 +19,19 @@ phpBB modification that enables users to post beautiful math in LaTeX and MathML
 * The [MathJax library][5] accessible from your forum's path or the ability to accept the [CDN TOS][6].
 
 ### Instalation: ###
-* Use [AutoMOD][7] or open install_mod.xml in your browser and follow the instructions
- * Note: `./contrib/modx.prosilver.en.xsl` is needed for the xml to render properly.
+* Use [AutoMOD][7] or open `install_mod.xml` in your browser and follow the instructions
+ * Note: `contrib/modx.prosilver.en.xsl` is needed to render properly all xml files.
 * Complete the instalation by running the php file mentioned, if any.
-* Adittional languages, themes, optional modifications and update instructions are located in the `contrib/` folder and linked on install_mod.xml.
+* Adittional languages, themes, optional modifications and update instructions are linked on `install_mod.xml`.
 * You may check the [wiki][8] for optimization tricks and special use-cases.
 
-## Notes: ##
-* The master branch *is only intended for development purposes* and may be incomplete and/or broken between releases.
+### Notes: ###
+* The git branches *are intended for development purposes only* and may be incomplete and/or broken between releases.
  * Please download a [tagged version][9] instead.
 
- [1]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/mathjax.gif
- [2]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/phpbb.png
- [3]: http://www.phpbb.com
+ [1]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/phpbb.png
+ [2]: http://www.phpbb.com
+ [3]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/mathjax.gif
  [4]: http://www.mathjax.org/
  [5]: http://www.mathjax.org/download/
  [6]: http://www.mathjax.org/download/mathjax-cdn-terms-of-service/
