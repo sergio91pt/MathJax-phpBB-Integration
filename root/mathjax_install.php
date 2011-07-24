@@ -4,7 +4,7 @@
  * @author sergio91pt (Sérgio Faria) sergio91pt@gmail.com
  * @version $Id$
  * @copyright (c) 2011 Sérgio Faria
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License v2
  *
  */
 
@@ -16,8 +16,6 @@ define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 
-$filename = 'mathjax_install';
-
 include($phpbb_root_path . 'common.' . $phpEx);
 $user->session_begin();
 $auth->acl($user->data);
@@ -28,6 +26,12 @@ if (!file_exists($phpbb_root_path . 'umil/umil_auto.' . $phpEx))
 {
 	trigger_error('Please download the latest UMIL (Unified MOD Install Library) from: <a href="http://www.phpbb.com/mods/umil/">phpBB.com/mods/umil</a>', E_USER_ERROR);
 }
+else if (!file_exists($phpbb_root_path . 'includes/functions_mathjax.' . $phpEx))
+{
+	trigger_error('Please follow the instalation instructions in install_mod.xml.<br>A critical file wasn\'t found on your forum.', E_USER_WARNING);
+}
+
+include($phpbb_root_path . 'includes/functions_mathjax.' . $phpEx);
 
 // The name of the mod to be displayed during installation.
 $mod_name = 'MATHJAX';
@@ -37,6 +41,16 @@ $mod_name = 'MATHJAX';
 * UMIL will handle checking, setting, and updating the version itself.
 */
 $version_config_name = 'mathjax_mod_version';
+
+// Lets fix the bad config name in v0.1.0 and v0.1.1 before continuing
+if (isset($config['mathjax_mod_version_version']))
+{
+	$sql = 'UPDATE ' . CONFIG_TABLE . ' 
+		SET config_name = ' . $version_config_name . ' 
+		WHERE config_name = mathjax_mod_version_version';
+	$db->sql_query($sql);
+	$cache->destroy('config');
+} 
 
 /*
 * The language file which will be included when installing
@@ -63,8 +77,8 @@ $options = array(
 	'mathjax_use_cdn'	=> array('lang' => 'MATHJAX_USE_CDN',	'type' => 'radio:yes_no',	'explain' => true, 'default' => $opt_default_cdn),
 	'mathjax_uri'		=> array('lang' => 'MATHJAX_URI',		'type' => 'text:20:255',	'explain' => true, 'default' => $opt_default_uri),
 	
-	'add_latex_bbcode'	=> array('lang' => 'ADD_LATEX_BBCODE',	'type' => 'radio:yes_no',	'explain' => true, 'default' => true),
-	'add_mml_bbcode'	=> array('lang' => 'ADD_MML_BBCODE',	'type' => 'radio:yes_no',	'explain' => true, 'default' => true),
+	'add_latex_bbcode'	=> array('lang' => 'ADD_LATEX_BBCODE',	'type' => 'radio:yes_no',	'explain' => true, 'default' => !bbcode_exists('latex')),
+	'add_mml_bbcode'	=> array('lang' => 'ADD_MML_BBCODE',	'type' => 'radio:yes_no',	'explain' => true, 'default' => !bbcode_exists('math')),
 
 	'legend3'			=> 'ACP_SUBMIT_CHANGES',
 );
@@ -85,27 +99,59 @@ $options = array(
 */
 $versions = array(
 	'0.2.0' => array(
+
 		'custom'	=> array(
 			'math_bbcodes',
 			'configure_mathjax',
 		),
-
+	
 		'config_add' => array(
 			array('mathjax_enable', true),
 			array('mathjax_dynamic_load', true),
-			array('mathjax_cdn', 'http://cdn.mathjax.org/mathjax/latest'),
-			array('mathjax_cdn_ssl', 'https://d3eoax9i5htok0.cloudfront.net/mathjax/latest'),
 			array('mathjax_cdn_force_ssl', false),
+		),
+		
+		'config_update' => array(
 			array('mathjax_config', 'TeX-AMS-MML_HTMLorMML'),
 		),
-
+	
+		'config_remove' => array(
+			array('mathjax_enable_post'),
+			array('mathjax_enable_pm'),
+		),
+		
 		'module_add' => array(
 			array('acp', 'ACP_CAT_DOT_MODS', 'ACP_MATHJAX_CAT'),
-
+			
 			array('acp', 'ACP_MATHJAX_CAT',
 				array('module_basename'	=> 'mathjax'),
 			),
 		),
+
+	),
+	'0.1.1' => array(
+		
+		'config_add' => array(		
+			array('mathjax_enable_post', '1', 0),
+			array('mathjax_enable_pm', '1', 0),
+		),
+		
+		'config_remove' => array(
+			array('mathjax_enabled_post'),
+			array('mathjax_enabled_pm'),
+		),
+			
+	),
+	'0.1.0' => array(
+
+		'config_add' => array(
+			array('mathjax_enabled_post', '1'),
+			array('mathjax_enabled_pm', '1'),
+			array('mathjax_cdn', 'http://cdn.mathjax.org/mathjax/latest'),
+			array('mathjax_cdn_ssl', 'https://d3eoax9i5htok0.cloudfront.net/mathjax/latest'),
+			array('mathjax_config', 'TeX-AMS-MML_HTMLorMML'),
+		),
+
 	),
 );
 
@@ -162,7 +208,7 @@ function configure_mathjax($action, $version)
 
 		if (!$mathjax_use_cdn && !$has_path)
 		{
-			trigger_error($user->lang['MUST_CONFIGURE_MATHJAX'] . gen_back_link(), E_USER_WARNING);
+			trigger_error($user->lang['MUST_CONFIGURE_MATHJAX'] . adm_back_link('ola'), E_USER_WARNING);
 		}
 		else if (!$has_path)
 		{
@@ -179,28 +225,31 @@ function configure_mathjax($action, $version)
 		// Add the bbcodes if requested
 		if (request_var('add_latex_bbcode', false))
 		{
-			$template = generate_bbcode_template(array(
+			$bbcode = array(
 				'bbcode_tag'			=> 'latex',
 				'math_type'				=> 'math/tex',
 				'display_on_posting'	=> true,
 				'bbcode_helpline'		=> '[latex]\\sqrt{4} = 2[/latex]',
 				'mathjax_preview'		=> '[math]',
-			));
-			
-			add_bbcode($template);
-		}
-		
+			);
+
+			// Create bbcode if it doesnt exists (and dont listen to errors)
+			$error = array();
+			create_bbcode($template, $error);
+		}	
 		if (request_var('add_mml_bbcode', false))
 		{
-			$template = generate_bbcode_template(array(
+			$bbcode = array(
 				'bbcode_tag'			=> 'math',
 				'math_type'				=> 'math/mml',
 				'display_on_posting'	=> false,
 				'bbcode_helpline'		=> '',
 				'mathjax_preview'		=> '[math]',
-			));
+			);
 			
-			add_bbcode($template);
+			// Create bbcode if it doesnt exists (and dont listen to errors)
+			$error = array();
+			create_bbcode($template, $error);
 		}
 
 		return 'UMIL_CONFIG_ADD';
@@ -217,154 +266,14 @@ function configure_mathjax($action, $version)
 }
 
 /**
- * Tests if MathJax.js is present at a given relative path that can escape the phpbb root dir.
- * This function triggers errors if the given path isn't a directory.
- * Based on validate_config_vars (adm/index.php)
- * 
- * @param path string Parameter by reference: the path to check.
- * @returns boolean True if MathJax.js exists in path, otherwise false.
- */
-function validate_mathjax_path(&$path)
-{
-	global $phpbb_root_path, $user;
-	
-	$path = trim($path);
-
-	// Make sure no NUL byte is present...
-	if (strpos($path, "\0") !== false || strpos($path, '%00') !== false)
-	{
-		$path = '';
-	}
-	
-	if (!file_exists($phpbb_root_path . $path))
-	{
-		trigger_error(sprintf($user->lang['DIRECTORY_DOES_NOT_EXIST'], $path) . gen_back_link(), E_USER_WARNING);
-	}
-
-	if (file_exists($phpbb_root_path . $path) && !is_dir($phpbb_root_path . $path))
-	{
-		trigger_error(sprintf($user->lang['DIRECTORY_NOT_DIR'], $path) . gen_back_link(), E_USER_WARNING);
-	}
-
-	return file_exists($phpbb_root_path . $path . '/MathJax.js');
-		
-}
-
-/**
-* Generate back link for acp pages
+* Generate back link for acp pages 
+* (adm/index.php isn't included)
 */
-function gen_back_link()
+function adm_back_link()
 {
-	global $user, $phpbb_root_path, $phpEx, $filename;
+	global $user, $phpbb_root_path;
 	
-	$path = "$phpbb_root_path{$filename}.$phpEx";
-	return '<br /><br /><a href="' . $path . '">&laquo; ' . $user->lang['BACK_TO_PREV'] . '</a>';
+	return '<br /><br /><a href="' . $phpbb_root_path . basename(__FILE__) . '">&laquo; ' . $user->lang['BACK_TO_PREV'] . '</a>';
 }
 
-/**
- * Modified version of its acp_mathjax counterpart
- * Preview is mandatory and uses a config parameter.
- * @param config array Configuration array for the returned template
- * @return array A template to insert in the db.
- */
-function generate_bbcode_template($bbcode)
-{
-	$first_pass_replace = "str_replace(array(\"\\r\\n\", '\\\"', '\\'', '(', ')'), array(\"\\n\", '\"', '&#39;', '&#40;', '&#41;'), trim('\${1}'))";
-
-	$tag = $bbcode['bbcode_tag'];
-	$type = $bbcode['math_type'];
-	$display_on_post = $bbcode['display_on_posting'];
-	$helpline = $bbcode['bbcode_helpline'];
-	$preview = $bbcode['mathjax_preview'];
-
-	$template = array(
-		'bbcode_tag'			=> $tag,
-		'bbcode_helpline'		=> $helpline,
-		'display_on_posting'	=> $display_on_post,
-		'bbcode_match'			=> '[' . $tag . ']{TEXT}[/' . $tag . ']',
-		'bbcode_tpl'			=> '<span class="MathJaxBB"><span class="MathJax_Preview">' . $preview . '</span><span class="' . $type .'" style="visibility: hidden;">{TEXT}</span></span>',
-		'first_pass_match' 		=> '!\[' . $tag . '\](.*?)\[/' . $tag . '\]!ies',
-		'first_pass_replace' 	=> '\'[' . $tag . ':$uid]\'.' . $first_pass_replace . '.\'[/' . $tag . ':$uid]\'',
-		'second_pass_match' 	=> '!\[' . $tag . ':$uid\](.*?)\[/' . $tag . ':$uid\]!s',
-		'second_pass_replace' 	=> '<span class="MathJaxBB"><span class="MathJax_Preview">' . $preview . '</span><span class="' . $type . '" style="visibility: hidden;">${1}</span></span>',
-		'is_math'				=> true,
-	);
-	return $template;
-}
-
-/**
- * Adds the bbcode with the given template if it doesn't yet exists.
- * @param array template The bbcode template generated by generate_bbcode_template()
- */
-function add_bbcode($template)
-{
-	global $db, $cache;
-	
-	if (!bbcode_exists($template['bbcode_tag']))
-	{
-		if(($bbcode_id = get_free_bbcode_id()) !== false)
-		{
-			$sql_ary = array_merge(array('bbcode_id' => $bbcode_id), $template);
-
-			$db->sql_query('INSERT INTO ' . BBCODES_TABLE . $db->sql_build_array('INSERT', $sql_ary));
-			$cache->destroy('sql', BBCODES_TABLE);
-		}
-	}
-	
-}
-
-/**
- * Checks if a valid lowercase bbcode tag exists in the BBCodes table
- * @return boolean True iff it exists, otherwise false.
- */
-function bbcode_exists($tag)
-{
-	global $db;
-
-	$sql = 'SELECT 1 as test 
-		FROM ' . BBCODES_TABLE . " 
-		WHERE LOWER(bbcode_tag) = '" . $db->sql_escape($tag) . "'";
-	$result = $db->sql_query($sql);
-	$info = $db->sql_fetchrow($result);
-	$db->sql_freeresult($result);
-
-	return ($info['test'] === '1') ? true : false;
-}
-
-/**
- * Gets a free bbcode id in the BBCodes table
- * @return mixed A free id (int) in the BBCodes table or false if trigger_error() was called
- */
-function get_free_bbcode_id()
-{
-	global $db, $user;
-	
-	$sql = 'SELECT MAX(bbcode_id) as max_bbcode_id
-		FROM ' . BBCODES_TABLE;
-	$result = $db->sql_query($sql);
-	$row = $db->sql_fetchrow($result);
-	$db->sql_freeresult($result);
-
-	if ($row)
-	{
-		$bbcode_id = $row['max_bbcode_id'] + 1;
-
-		// Make sure it is greater than the core bbcode ids...
-		if ($bbcode_id <= NUM_CORE_BBCODES)
-		{
-			$bbcode_id = NUM_CORE_BBCODES + 1;
-		}
-	}
-	else
-	{
-		$bbcode_id = NUM_CORE_BBCODES + 1;
-	}
-
-	if ($bbcode_id > BBCODE_LIMIT)
-	{
-		trigger_error($user->lang['TOO_MANY_BBCODES'] . gen_back_link(), E_USER_WARNING);
-		return false;
-	}
-	return $bbcode_id;
-}
 ?>
