@@ -49,6 +49,7 @@ class acp_mathjax
 						'mathjax_use_cdn'		=> array('lang' => 'MATHJAX_USE_CDN',		'validate' => 'bool',	'type' => 'radio:yes_no',			'explain' => true),
 						'mathjax_cdn_force_ssl' => array('lang' => 'MATHJAX_CDN_FORCE_SSL',	'validate' => 'bool',	'type' => 'radio:yes_no',			'explain' => true),
 						'mathjax_uri'			=> array('lang' => 'MATHJAX_URI',			'validate' => 'path',	'type' => 'text:20:255',			'explain' => true),
+						'mathjax_config'		=> array('lang' => 'MATHJAX_CONFIG',		'validate' => 'string',	'type' => 'text:20:255',			'explain' => true),	
 												
 						'legend2'				=> 'ACP_SUBMIT_CHANGES',
 					),
@@ -78,7 +79,7 @@ class acp_mathjax
 					case 'create':
 						$display_vars['vars'] = array_merge($display_vars['vars'], array(
 							'legend1'				=> 'BBCODE_EDITOR',
-							'bbcode_tag'			=> array('lang' => 'MATHJAX_BBCODE_TAG',		'validate' => 'string:1:16',		'type' => 'text:20:16',			'explain' => false),
+							'bbcode_tag'			=> array('lang' => 'MATHJAX_BBCODE_TAG',		'validate' => 'string:1:16',	'type' => 'text:20:16',			'explain' => false),
 							'math_type'				=> array('lang' => 'MATHJAX_BBCODE_TYPE', 		'type' => 'custom',				'method' => 'build_math_type', 	'explain' => false),
 							'display_on_posting'	=> array('lang' => 'MATHJAX_BBCODE_DISPLAY',	'validate' => 'bool',			'type' => 'radio:yes_no',		'explain' => true),
 							'bbcode_helpline'		=> array('lang' => 'MATHJAX_BBCODE_HELPLINE',	'validate' => 'string',			'type' => 'text:20:255', 		'explain' => true),

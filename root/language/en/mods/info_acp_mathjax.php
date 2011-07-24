@@ -51,7 +51,6 @@ $lang = array_merge($lang, array(
 	'BBCODE_CREATED'			=> 'BBCode created successfully.',
 	'BBCODE_MODIFIED'			=> 'BBCode modified successfully.',
 	
-
 // Page titles and "legend" titles
 	'MATHJAX_SETTINGS'				=> 'MathJax General Settings',
 	'MATHJAX_SETTINGS_EXPLAIN'		=> 'Here you can configure phpBB Integration with MathJax.',
@@ -69,9 +68,11 @@ $lang = array_merge($lang, array(
 	'MATHJAX_CDN_FORCE_SSL'			=> 'Force HTTPS connection to the CDN',
 	'MATHJAX_CDN_FORCE_SSL_EXPLAIN'	=> 'Force HTTPS even if your board doesn\'t use a secure connection.',
 	'MATHJAX_URI'					=> 'MathJax Instalation Path',
-	'MATHJAX_URI_EXPLAIN'			=> 'If you don\'t use the CDN, you\'ll need to enter the path to your local instalation, e.g. <samp>javascript/mathjax</samp>. If you do use the CDN, this will be used for fallback purposes.',
+	'MATHJAX_URI_EXPLAIN'			=> 'If you don\'t use the CDN, you\'ll need to enter the path to your local instalation, e.g. <samp>javascript/mathjax</samp>.<br>If you do use the CDN, this will be used for fallback purposes.',
 	'MATHJAX_DYNAMIC_LOAD'			=> 'Dynamically load MathJax',
 	'MATHJAX_DYNAMIC_LOAD_EXPLAIN'	=> 'Only loads MathJax if theres a math bbcode to be processed.',
+	'MATHJAX_CONFIG'				=> 'Configuration File',
+	'MATHJAX_CONFIG_EXPLAIN'		=> 'MathJax configuration filename or url e.g. <samp>TeX-AMS-MML_HTMLorMML</samp>. Valid values are explained in the <a href="http://www.mathjax.org/docs/1.1/configuration.html#using-a-configuration-file">documentation</a>.',
 	
 // BBCode Settings
 	'MATHJAX_BBCODE_TYPE'				=> 'Math type',
@@ -90,12 +91,24 @@ $lang = array_merge($lang, array(
 // UMIL
 	'MATHJAX'					=> 'Mathjax phpBB Integration',
 	'INSTALL_MATHJAX'			=> 'Install Mathjax Integration',
-	'INSTALL_MATHJAX_CONFIRM'	=> 'Are you sure you want to install this mod? Don\'t forget that, after installing, this mod must be configured and enabled in the ACP before it can be used.',
+	'INSTALL_MATHJAX_CONFIRM'	=> 'Are you sure you want to install this mod? After installing it, the mod configuration can be found in the Mods category.',
 	'UPDATE_MATHJAX'			=> 'Update Mathjax Integration',
 	'UPDATE_MATHJAX_CONFIRM'	=> 'Are you ready to update this mod?',
 	'UNINSTALL_MATHJAX'			=> 'Uninstall Mathjax Integration',
-	'UNINSTALL_MATHJAX_CONFIRM'	=> 'Are you sure you want to uninstall this mod? All settings will be removed.',
-
+	'UNINSTALL_MATHJAX_CONFIRM'	=> 'Are you sure you want to uninstall this mod? All settings and math bbcodes will be removed.',
+	'UMIL_REMOVE_BBCODES'		=> 'Removing all math bbcodes.',
+	'UMIL_CONFIG_REMOVE'		=> 'Removing MathJax base configuration.',
+	'UMIL_CONFIG_ADD'			=> 'Adding MathJax base configuration.',
+	'UMIL_CONFIG_IGNORE'		=> 'Ignoring the configuration form, since this is an update.',
+	'MUST_CONFIGURE_MATHJAX'	=> 'The supplied path didn\'t contain a valid MathJax installation and the CDN is disabled.<br>To successfully install this mod you need to enter a valid path to your MathJax local installation or use the CDN, agreeing to its terms.',
+	'UMIL_ADD_BBCODE_TABLE'		=> 'Adding the is_math column table, if it doesn\'t exist.',
+	
+// UMIL configuration form
+	'UMIL_CONFIG'				=> 'Install Configuration',
+	'ADD_LATEX_BBCODE'			=> 'Add a BBCode for LaTeX',
+	'ADD_LATEX_BBCODE_EXPLAIN'	=> 'Adds a pre-configured math bbcode for LaTeX whose tag is latex.',
+	'ADD_MML_BBCODE'			=> 'Add a BBCode for MathML',
+	'ADD_MML_BBCODE_EXPLAIN'	=> 'Adds a pre-configured math bbcode for MathML whose tag is math and isnt shown on the editor by default.',
 ));
 
 ?>

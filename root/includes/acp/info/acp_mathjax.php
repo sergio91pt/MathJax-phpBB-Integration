@@ -20,8 +20,8 @@ class acp_mathjax_info
         'title'        => 'ACP_MATHJAX',
         'version'    => '1.0.0',
         'modes'        => array(
-            'settings'		=> array('title' => 'ACP_MATHJAX_SETTINGS', 'auth' => 'acl_a_server', 'cat' => array('ACP_CAT_DOT_MODS')),
-            'bbcode'		=> array('title' => 'ACP_MATHJAX_BBCODES', 'auth' => 'acl_a_bbcode', 'cat' => array('ACP_CAT_DOT_MODS')),
+            'settings'		=> array('title' => 'ACP_MATHJAX_SETTINGS', 'auth' => 'acl_a_server', 'cat' => array('ACP_MATHJAX_CAT')),
+            'bbcode'		=> array('title' => 'ACP_MATHJAX_BBCODES', 'auth' => 'acl_a_bbcode', 'cat' => array('ACP_MATHJAX_CAT')),
             ),
         );
         
