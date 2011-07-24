@@ -17,6 +17,11 @@ if (!defined('IN_PHPBB'))
 }
 
 /**
+ * @ignore
+ */
+include($phpbb_root_path . 'includes/functions_mathjax.' . $phpEx);
+
+/**
 * @package acp
 */
 class acp_mathjax
@@ -48,7 +53,7 @@ class acp_mathjax
 						'mathjax_dynamic_load'	=> array('lang' => 'MATHJAX_DYNAMIC_LOAD',	'validate' => 'bool',	'type' => 'radio:yes_no',			'explain' => true),
 						'mathjax_use_cdn'		=> array('lang' => 'MATHJAX_USE_CDN',		'validate' => 'bool',	'type' => 'radio:yes_no',			'explain' => true),
 						'mathjax_cdn_force_ssl' => array('lang' => 'MATHJAX_CDN_FORCE_SSL',	'validate' => 'bool',	'type' => 'radio:yes_no',			'explain' => true),
-						'mathjax_uri'			=> array('lang' => 'MATHJAX_URI',			'validate' => 'path',	'type' => 'text:20:255',			'explain' => true),
+						'mathjax_uri'			=> array('lang' => 'MATHJAX_URI',									'type' => 'text:20:255',			'explain' => true),
 						'mathjax_config'		=> array('lang' => 'MATHJAX_CONFIG',		'validate' => 'string',	'type' => 'text:20:255',			'explain' => true),	
 												
 						'legend2'				=> 'ACP_SUBMIT_CHANGES',
@@ -57,7 +62,6 @@ class acp_mathjax
 			break;
 
 			case 'bbcode':
-				$this->hard_coded_bbcodes = array('code', 'quote', 'attachment', 'b', 'i', 'url', 'img', 'size', 'color', 'u', 'list', 'email', 'flash');
 				$this->math_types = array(
 					'math/tex' => 'MATH_TYPE_TEX', 
 					'math/mml' => 'MATH_TYPE_MML',
@@ -77,7 +81,7 @@ class acp_mathjax
 					
 					case 'modify':
 					case 'create':
-						$display_vars['vars'] = array_merge($display_vars['vars'], array(
+						$display_vars['vars'] = array(
 							'legend1'				=> 'BBCODE_EDITOR',
 							'bbcode_tag'			=> array('lang' => 'MATHJAX_BBCODE_TAG',		'validate' => 'string:1:16',	'type' => 'text:20:16',			'explain' => false),
 							'math_type'				=> array('lang' => 'MATHJAX_BBCODE_TYPE', 		'type' => 'custom',				'method' => 'build_math_type', 	'explain' => false),
@@ -86,7 +90,7 @@ class acp_mathjax
 							'mathjax_preview'		=> array('lang' => 'MATHJAX_PREVIEW',			'validate' => 'string', 		'type' => 'text:20:255',		'explain' => true),
 	
 							'legend2'				=> 'ACP_SUBMIT_CHANGES',
-						));
+						);
 					break;
 
 					case 'delete':
@@ -181,6 +185,23 @@ class acp_mathjax
 		{
 			$this->validate_math_type($cfg_array['math_type']);
 		}
+
+		// Lets check if the path entered isn't valid and if we're gonna complain
+		if ($submit && $mode = 'settings' && !validate_mathjax_path($cfg_array['mathjax_uri']))
+		{
+			// If the user left it blank but enabled the cdn we won't complain but if...
+			if (empty($cfg_array['mathjax_uri']))
+			{
+				if(empty($cfg_array['mathjax_use_cdn']))
+				{
+					$error[] = $user->lang['MUST_CONFIGURE_MATHJAX'];
+				}
+			}
+			else
+			{
+				$error[] = $user->lang['INVALID_MATHJAX_PATH'];
+			}
+		}
 		
 		if ($submit && !check_form_key($form_key))
 		{
@@ -215,7 +236,7 @@ class acp_mathjax
 			{
 				if (confirm_box(true))
 				{
-					$this->remove_bbcode($bbcode_id);
+					remove_bbcode($bbcode_id);
 					add_log('admin', 'LOG_BBCODE_DELETE', $this->new_config['bbcode_tag']);
 					trigger_error($user->lang['BBCODE_DELETED'] . adm_back_link($this->u_action));
 				}
@@ -233,13 +254,13 @@ class acp_mathjax
 			{
 				if ($action == 'modify')
 				{
-					$this->modify_bbcode($error);
+					modify_bbcode($this->new_config, $error);
 					$log_action = 'LOG_BBCODE_EDIT';
 					$notice_msg = 'BBCODE_MODIFIED';
 				} 
 				else if ($action == 'create')
 				{
-					$this->create_bbcode($error);
+					create_bbcode($this->new_config, $error);
 					$log_action = 'LOG_BBCODE_ADD';
 					$notice_msg = 'BBCODE_CREATED';
 				}
@@ -351,9 +372,6 @@ class acp_mathjax
 		}
 	}
 
-	// BBCode Functions
-	// Note: Basic error checking is done by validate_config_vars() on $this->main()
-	
 	function build_math_type()
 	{
 		global $user;
@@ -377,171 +395,6 @@ class acp_mathjax
 			trigger_error('Invalid math type', E_USER_ERROR);
 		}
 	}
-
-	function create_bbcode(&$error)
-	{
-		global $db, $cache, $user;
-		
-		$tag = $this->new_config['bbcode_tag'];
-
-		// Lets be nice and allow [AwS-0Me_Tag2] and no_brackets_lazy_tag
-		if(!preg_match('/^\[[a-zA-Z0-9_-]+\]$|^[a-zA-Z0-9_-]+$/', $tag)) 
-		{
-			$error[] = sprintf($user->lang['ERROR_BBCODE_INVALID'], $tag);
-			return;
-		}
-
-		$tag = $this->new_config['bbcode_tag'] = strtolower(trim($tag, '[]'));
-
-		if(in_array($tag, $this->hard_coded_bbcodes) || $this->bbcode_exists($tag))
-		{
-			$error[] = sprintf($user->lang['ERROR_BBCODE_EXISTS'], $tag);
-		}
-		else if(($bbcode_id = $this->get_free_bbcode_id()) !== false)
-		{
-			$sql_ary = array_merge(
-				array('bbcode_id' => $bbcode_id),
-				$this->generate_bbcode_template()
-			);
-
-			$db->sql_query('INSERT INTO ' . BBCODES_TABLE . $db->sql_build_array('INSERT', $sql_ary));
-			$cache->destroy('sql', BBCODES_TABLE);
-		}
-	}
-
-	function modify_bbcode(&$error)
-	{
-		global $db, $cache, $user;
-
-		$bbcode_id = $this->new_config['bbcode_id'];
-		$tag = $this->new_config['bbcode_tag'];
-		
-		// Lets be nice and allow [AwS-0Me_Tag2] and no_brackets_lazy_tag
-		if(!preg_match('/^\[[a-zA-Z0-9_-]+\]$|^[a-zA-Z0-9_-]+$/', $tag)) 
-		{
-			$error[] = sprintf($user->lang['ERROR_BBCODE_INVALID'], $tag);
-			return;
-		}
-
-		$tag = $this->new_config['bbcode_tag'] = strtolower(trim($tag, '[]'));
-
-		if(in_array($tag, $this->hard_coded_bbcodes))
-		{
-			$error[] = sprintf($user->lang['ERROR_BBCODE_EXISTS'], $tag);
-			return;
-		}
-
-		$template = $this->generate_bbcode_template();
-
-		$sql = 'UPDATE ' . BBCODES_TABLE . ' 
-			SET ' . $db->sql_build_array('UPDATE', $template) . " 
-			WHERE bbcode_id = $bbcode_id";
-		$db->sql_query($sql);
-		$cache->destroy('sql', BBCODES_TABLE);
-	}
-
-	function remove_bbcode($bbcode_id)
-	{
-		global $db, $cache;
-
-		$sql = 'DELETE 
-			FROM ' . BBCODES_TABLE . " 
-			WHERE bbcode_id = $bbcode_id";
-		$db->sql_query($sql);
-		$cache->destroy('sql', BBCODES_TABLE);
-	}
-
-	/**
-	 * Checks if a valid lowercase bbcode tag exists in the BBCodes table
-	 * @return boolean True iff it exists, otherwise false.
-	 */
-	function bbcode_exists($tag)
-	{
-		global $db;
-
-		$sql = 'SELECT 1 as test 
-			FROM ' . BBCODES_TABLE . " 
-			WHERE LOWER(bbcode_tag) = '" . $db->sql_escape($tag) . "'";
-		$result = $db->sql_query($sql);
-		$info = $db->sql_fetchrow($result);
-		$db->sql_freeresult($result);
-
-		return ($info['test'] === '1') ? true : false;
-	}
-
-	/**
-	 * Gets a free bbcode id in the BBCodes table
-	 * @return mixed A free id (int) in the BBCodes table or false if trigger_error() was called
-	 */
-	function get_free_bbcode_id()
-	{
-		global $db, $user;
-		
-		$sql = 'SELECT MAX(bbcode_id) as max_bbcode_id
-			FROM ' . BBCODES_TABLE;
-		$result = $db->sql_query($sql);
-		$row = $db->sql_fetchrow($result);
-		$db->sql_freeresult($result);
-
-		if ($row)
-		{
-			$bbcode_id = $row['max_bbcode_id'] + 1;
-
-			// Make sure it is greater than the core bbcode ids...
-			if ($bbcode_id <= NUM_CORE_BBCODES)
-			{
-				$bbcode_id = NUM_CORE_BBCODES + 1;
-			}
-		}
-		else
-		{
-			$bbcode_id = NUM_CORE_BBCODES + 1;
-		}
-
-		if ($bbcode_id > BBCODE_LIMIT)
-		{
-			trigger_error($user->lang['TOO_MANY_BBCODES'] . adm_back_link($this->u_action), E_USER_WARNING);
-			return false;
-		}
-		return $bbcode_id;
-	}
-
-	function generate_bbcode_template()
-	{
-		$first_pass_replace = "str_replace(array(\"\\r\\n\", '\\\"', '\\'', '(', ')'), array(\"\\n\", '\"', '&#39;', '&#40;', '&#41;'), trim('\${1}'))";
-
-		$tag = $this->new_config['bbcode_tag'];
-		$type = $this->new_config['math_type'];
-		$display_on_post = $this->new_config['display_on_posting'];
-		$helpline = $this->new_config['bbcode_helpline'];
-
-		if (!empty($this->new_config['mathjax_preview']))
-		{
-			$preview = $this->new_config['mathjax_preview'];
-			$preview = ($preview == '{NONE}') ? '' : '<span class="MathJax_Preview">' . $preview . '</span>';  
-			$style = ' style="visibility: hidden;"';
-		}
-		else
-		{
-			$preview = '';
-			$style = '';
-		}
-
-		$template = array(
-			'bbcode_tag'			=> $tag,
-			'bbcode_helpline'		=> $helpline,
-			'display_on_posting'	=> $display_on_post,
-			'bbcode_match'			=> '[' . $tag . ']{TEXT}[/' . $tag . ']',
-			'bbcode_tpl'			=> '<span class="MathJaxBB">' . $preview . '<span class="' . $type .'"' . $style . '>{TEXT}</span></span>',
-			'first_pass_match' 		=> '!\[' . $tag . '\](.*?)\[/' . $tag . '\]!ies',
-			'first_pass_replace' 	=> '\'[' . $tag . ':$uid]\'.' . $first_pass_replace . '.\'[/' . $tag . ':$uid]\'',
-			'second_pass_match' 	=> '!\[' . $tag . ':$uid\](.*?)\[/' . $tag . ':$uid\]!s',
-			'second_pass_replace' 	=> '<span class="MathJaxBB">' . $preview . '<span class="' . $type . '"' . $style . '>${1}</span></span>',
-			'is_math'				=> true,
-		);
-		return $template;
-	}
-
 }
 
 ?>

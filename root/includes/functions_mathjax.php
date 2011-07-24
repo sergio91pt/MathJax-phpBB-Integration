@@ -1,6 +1,6 @@
 <?php
 /**
-* BBCode functions to insert/update/remove math bbcodes.
+* Mainly BBCode functions to insert/update/remove math bbcodes.
 * 
 * @package phpBB3
 * @version $Id$
@@ -16,11 +16,6 @@ if (!defined('IN_PHPBB'))
 {
 	exit;
 }
-
-/**
- * Array with all hardcoded bbcodes as of phpBB 3.0.9
- */
-static $hard_coded_bbcodes = array('code', 'quote', 'attachment', 'b', 'i', 'url', 'img', 'size', 'color', 'u', 'list', 'email', 'flash');
 
 /* BBCode configuration:
  * The parameter for generate_bbcode_template(),
@@ -75,7 +70,9 @@ function create_bbcode(&$bbcode, &$error)
  */
 function modify_bbcode(&$bbcode, &$error)
 {
-	global $db, $cache, $user, $hard_coded_bbcodes;
+	global $db, $cache, $user;
+	static $hard_coded_bbcodes = array('code', 'quote', 'attachment', 'b', 'i', 'url', 'img', 'size', 'color', 'u', 'list', 'email', 'flash');
+	
 	$tag &= $bbcode['bbcode_tag'];
 	
 	if(!verify_tag($tag)) 
@@ -137,7 +134,8 @@ function remove_bbcode($bbcode_id)
  */
 function bbcode_exists($tag)
 {
-	global $db, $hard_coded_bbcodes;
+	global $db;
+	static $hard_coded_bbcodes = array('code', 'quote', 'attachment', 'b', 'i', 'url', 'img', 'size', 'color', 'u', 'list', 'email', 'flash');
 	
 	if (in_array($tag, $hard_coded_bbcodes))
 	{
