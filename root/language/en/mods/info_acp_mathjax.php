@@ -45,7 +45,7 @@ $lang = array_merge($lang, array(
 	'BBCODE_DOESNT_EXIST'		=> 'The requested math BBCode doesn\'t exist',
 	'BBCODE_NOT_MATH_TPL'		=> 'The request bbcode doesn\'t seem to be a math bbcode although is marked as such.',
 	'INVALID_MATHJAX_PATH'		=> 'The entered path doesn\'t contain a valid MathJax installation',
-	'MUST_CONFIGURE_MATHJAX'	=> 'The entered path doesn\'t contain a valid MathJax installation and the CDN is disabled.<br>Please enter a valid path to your MathJax local installation or use the CDN, agreeing to its terms.',
+	'MUST_CONFIGURE_MATHJAX'	=> 'The entered path doesn\'t contain a valid MathJax installation and the CDN is disabled.<br>Please, in the ACP enter, a valid path to your MathJax local installation or use the CDN, agreeing to its terms.',
 	
 // Confirm boxes & notice msg
 	'BBCODE_DELETE_CONFIRM'		=> 'Are you sure you want to delete the %s bbcode?',
@@ -98,11 +98,14 @@ $lang = array_merge($lang, array(
 	'UPDATE_MATHJAX_CONFIRM'	=> 'Are you ready to update this mod?',
 	'UNINSTALL_MATHJAX'			=> 'Uninstall Mathjax Integration',
 	'UNINSTALL_MATHJAX_CONFIRM'	=> 'Are you sure you want to uninstall this mod? All settings and math bbcodes will be removed.',
+	
+// UMIL custom functions
 	'UMIL_REMOVE_BBCODES'		=> 'Removing all math bbcodes.',
+	'UMIL_ADD_BBCODE_TABLE'		=> 'Adding the is_math column table, if it doesn\'t exist.',
 	'UMIL_CONFIG_REMOVE'		=> 'Removing MathJax base configuration.',
 	'UMIL_CONFIG_ADD'			=> 'Adding MathJax base configuration.',
-	'UMIL_CONFIG_IGNORE'		=> 'Ignoring the configuration form, since this is an update.',
-	'UMIL_ADD_BBCODE_TABLE'		=> 'Adding the is_math column table, if it doesn\'t exist.',
+	'UMIL_BBCODE_ADD'			=> 'Adding the pre-configured bbcode: %s',
+	'UMIL_BBCODE_IGNORE'		=> 'Ignoring bbcode: %s',
 	
 // UMIL configuration form
 	'UMIL_CONFIG'				=> 'Install Configuration',

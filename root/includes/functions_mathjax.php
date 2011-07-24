@@ -42,15 +42,19 @@ function create_bbcode(&$bbcode, &$error)
 	
 	$tag =& $bbcode['bbcode_tag'];
 
-	if(!verify_tag($tag)) 
+	if (!verify_tag($tag)) 
 	{
 		$error[] = sprintf($user->lang['ERROR_BBCODE_INVALID'], $tag);
 	}
-	else if(bbcode_exists($tag))
+	else if (bbcode_exists($tag))
 	{
 		$error[] = sprintf($user->lang['ERROR_BBCODE_EXISTS'], $tag);
 	}
-	else if(($bbcode_id = get_free_bbcode_id()) !== false)
+	else if (($bbcode_id = get_free_bbcode_id()) === false)
+	{
+		$error[] = $user->lang['TOO_MANY_BBCODES'];
+	}
+	else
 	{
 		$sql_ary = array_merge(
 			array('bbcode_id' => $bbcode_id),
@@ -75,11 +79,11 @@ function modify_bbcode(&$bbcode, &$error)
 	
 	$tag &= $bbcode['bbcode_tag'];
 	
-	if(!verify_tag($tag)) 
+	if (!verify_tag($tag)) 
 	{
 		$error[] = sprintf($user->lang['ERROR_BBCODE_INVALID'], $tag);
 	}
-	else if(in_array($tag, $hard_coded_bbcodes))
+	else if (in_array($tag, $hard_coded_bbcodes))
 	{
 		$error[] = sprintf($user->lang['ERROR_BBCODE_EXISTS'], $tag);
 	}
@@ -183,7 +187,6 @@ function get_free_bbcode_id()
 
 	if ($bbcode_id > BBCODE_LIMIT)
 	{
-		trigger_error($user->lang['TOO_MANY_BBCODES'], E_USER_WARNING);
 		return false;
 	}
 	return (int) $bbcode_id;
@@ -242,6 +245,7 @@ function validate_mathjax_path(&$path)
 	global $phpbb_root_path, $user;
 
 	$path = trim($path);
+	$path = rtrim($path, '/');
 
 	// Make sure no NUL byte is present...
 	if (strpos($path, "\0") !== false || strpos($path, '%00') !== false)

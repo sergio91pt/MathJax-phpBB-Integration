@@ -97,7 +97,7 @@
 		}
 		else
 		{
-			$mathjax_uri = $config['mathjax_uri'] ;
+			$mathjax_uri = isset($config['mathjax_uri']) ? $config['mathjax_uri'] : '';
 		}
 
 		$mathjax_uri = $mathjax_uri . $mathjax_file;

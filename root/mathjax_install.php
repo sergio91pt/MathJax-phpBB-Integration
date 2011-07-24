@@ -103,6 +103,8 @@ $versions = array(
 		'custom'	=> array(
 			'math_bbcodes',
 			'configure_mathjax',
+			'add_latex_bbcode',
+			'add_mml_bbcode',
 		),
 	
 		'config_add' => array(
@@ -111,10 +113,6 @@ $versions = array(
 			array('mathjax_cdn_force_ssl', false),
 		),
 		
-		'config_update' => array(
-			array('mathjax_config', 'TeX-AMS-MML_HTMLorMML'),
-		),
-	
 		'config_remove' => array(
 			array('mathjax_enable_post'),
 			array('mathjax_enable_pm'),
@@ -204,16 +202,20 @@ function configure_mathjax($action, $version)
 	{
 		$mathjax_use_cdn = request_var('mathjax_use_cdn', false);
 		$mathjax_uri = request_var('mathjax_uri', '');
-		$has_path = validate_mathjax_path($mathjax_uri);
 
-		if (!$mathjax_use_cdn && !$has_path)
+		if (!validate_mathjax_path($mathjax_uri))
 		{
-			trigger_error($user->lang['MUST_CONFIGURE_MATHJAX'] . adm_back_link('ola'), E_USER_WARNING);
+			// If the user left it blank but enabled the cdn we won't complain but...
+			if (!empty($mathjax_uri))
+			{
+				$error = $user->lang['INVALID_MATHJAX_PATH'];
+				$mathjax_uri = '';
+			}
+			else if ($mathjax_use_cdn == false)
+			{
+				$error = $user->lang['MUST_CONFIGURE_MATHJAX'];
+			}
 		}
-		else if (!$has_path)
-		{
-			$mathjax_uri = '';
-		} 
 
 		$new_config = array(
 			array('mathjax_uri', $mathjax_uri),
@@ -222,36 +224,11 @@ function configure_mathjax($action, $version)
 
 		($action == 'install') ? $umil->config_add($new_config) : $umil->config_update($new_config);
 		
-		// Add the bbcodes if requested
-		if (request_var('add_latex_bbcode', false))
+		if(isset($error))
 		{
-			$bbcode = array(
-				'bbcode_tag'			=> 'latex',
-				'math_type'				=> 'math/tex',
-				'display_on_posting'	=> true,
-				'bbcode_helpline'		=> '[latex]\\sqrt{4} = 2[/latex]',
-				'mathjax_preview'		=> '[math]',
-			);
-
-			// Create bbcode if it doesnt exists (and dont listen to errors)
-			$error = array();
-			create_bbcode($template, $error);
-		}	
-		if (request_var('add_mml_bbcode', false))
-		{
-			$bbcode = array(
-				'bbcode_tag'			=> 'math',
-				'math_type'				=> 'math/mml',
-				'display_on_posting'	=> false,
-				'bbcode_helpline'		=> '',
-				'mathjax_preview'		=> '[math]',
-			);
-			
-			// Create bbcode if it doesnt exists (and dont listen to errors)
-			$error = array();
-			create_bbcode($template, $error);
+			return array('command' => 'UMIL_CONFIG_ADD', 'result' => "ERROR: $error");
 		}
-
+		
 		return 'UMIL_CONFIG_ADD';
 	}
 	else if ($action = 'uninstall')
@@ -266,14 +243,71 @@ function configure_mathjax($action, $version)
 }
 
 /**
-* Generate back link for acp pages 
-* (adm/index.php isn't included)
-*/
-function adm_back_link()
+ * Adds the latex bbcode if the user choose so and is not uninstalling
+ *
+ * @param string $action The action (install|update|uninstall) will be sent through this.
+ * @param string $version The version this is being run for will be sent through this.
+ */
+function add_latex_bbcode($action, $version)
 {
-	global $user, $phpbb_root_path;
+	global $user;
+
+	$bbcode = array(
+		'bbcode_tag'			=> 'latex',
+		'math_type'				=> 'math/tex',
+		'display_on_posting'	=> true,
+		'bbcode_helpline'		=> '[latex]\\sqrt{4} = 2[/latex]',
+		'mathjax_preview'		=> '[math]',
+	);
+
+	if ($action != 'uninstall' && request_var('add_latex_bbcode', false))
+	{
+		$error  = array();
+		$command = sprintf($user->lang['UMIL_BBCODE_ADD'], $bbcode['bbcode_tag']);
+
+		create_bbcode($bbcode, $error);
+
+		if(sizeof($error))
+		{
+			return array('command' => $command, 'result' => "ERROR: $error[0]");
+		}
+		return $command;
+	}
+	return sprintf($user->lang['UMIL_BBCODE_IGNORE'], $bbcode['bbcode_tag']);
+}
+
+/**
+ * Adds the latex bbcode if the user choose so and is not uninstalling
+ * 
+ * @param string $action The action (install|update|uninstall) will be sent through this.
+ * @param string $version The version this is being run for will be sent through this.
+ */
+function add_mml_bbcode($action, $version)
+{
+	global $user;
 	
-	return '<br /><br /><a href="' . $phpbb_root_path . basename(__FILE__) . '">&laquo; ' . $user->lang['BACK_TO_PREV'] . '</a>';
+	$bbcode = array(
+		'bbcode_tag'			=> 'math',
+		'math_type'				=> 'math/mml',
+		'display_on_posting'	=> false,
+		'bbcode_helpline'		=> '',
+		'mathjax_preview'		=> '[math]',
+	);
+		
+	if ($action != 'uninstall' && request_var('add_latex_bbcode', false))
+	{
+		$error  = array();
+		$command = sprintf($user->lang['UMIL_BBCODE_ADD'], $bbcode['bbcode_tag']);
+
+		create_bbcode($bbcode, $error);
+
+		if(sizeof($error))
+		{
+			return array('command' => $command, 'result' => "ERROR: $error[0]");
+		}
+		return $command;
+	}
+	return sprintf($user->lang['UMIL_BBCODE_IGNORE'], $bbcode['bbcode_tag']);
 }
 
 ?>
