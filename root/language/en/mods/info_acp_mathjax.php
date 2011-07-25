@@ -70,7 +70,7 @@ $lang = array_merge($lang, array(
 	'MATHJAX_CDN_FORCE_SSL'			=> 'Force a secure connection to the <abbr title="Content Distribution Network">CDN</abbr>',
 	'MATHJAX_CDN_FORCE_SSL_EXPLAIN'	=> 'Force HTTPS even if your board doesn\'t use a secure connection.',
 	'MATHJAX_URI'					=> 'MathJax Instalation Path',
-	'MATHJAX_URI_EXPLAIN'			=> 'If you don\'t use the <abbr title="Content Distribution Network">CDN</abbr>, you\'ll need to enter the path to your local instalation, e.g. <samp>javascript/mathjax</samp>. <br /> If you do use the <abbr title="Content Distribution Network">CDN</abbr>, this will be used for fallback purposes.',
+	'MATHJAX_URI_EXPLAIN'			=> 'If you don\'t use the <abbr title="Content Distribution Network">CDN</abbr>, you\'ll need to enter the path to your local instalation, e.g. <samp>assets/javascript/MathJax</samp>. <br /> If you do use the <abbr title="Content Distribution Network">CDN</abbr>, this will be used for fallback purposes.',
 	'MATHJAX_DYNAMIC_LOAD'			=> 'Dynamically load MathJax',
 	'MATHJAX_DYNAMIC_LOAD_EXPLAIN'	=> 'Only loads MathJax if theres a math bbcode to be processed.',
 	'MATHJAX_CONFIG'				=> 'Configuration File',

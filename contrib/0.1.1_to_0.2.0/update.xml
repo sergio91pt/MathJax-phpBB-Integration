@@ -6,6 +6,7 @@
 		<license>GNU General Public License v2</license>
 		<title lang="en">MathJax phpBB Integration - Update from v0.1.1 to v0.2.0</title>
 		<description lang="en">Enables users to post math in LaTeX and MathML, using the MathJax JavaScript Library.</description>
+		<description lang="pt">Possibilita a utilização de LaTeX e MathML em posts, usando a biblioteca de JavaScript MathJax.</description>
 		<author-group>
 			<author>
 				<realname>Sérgio Faria</realname>
@@ -27,6 +28,25 @@
 			<target-version>3.0.9</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-07-25</date>
+				<rev-version>0.2.0</rev-version>
+				<changelog lang="en">
+					<change>Pretty much rewritten the mod.</change>
+					<change>Added support for MathML.</change>
+					<change>Removed MathJax pre-processors.</change>
+					<change>Created phpBB2jax, a small pre-processor that turns special span tags into math scripts.</change>
+					<change>Added option to force HTTPS on the CDN.</change>
+					<change>Flawless dynamic loading with the option to disable it.</change>
+					<change>Removed options to disable for posts and BBCodes in favor of a global one.</change>
+					<change>Now it uses the native phpBB BBCode system, introducing the concept of math BBCodes and fixing the flaws of he old method.</change>
+					<change>Added an option to specify a static preview for each BBCode.</change>
+					<change>Removed as much as possible edits to core files.</change>
+					<change>Added validation to the library path.</change>
+					<change>Added a configuration form to UMIL.</change>
+					<change>Added support for the Version check Mod.</change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-07-08</date>
 				<rev-version>0.1.1</rev-version>

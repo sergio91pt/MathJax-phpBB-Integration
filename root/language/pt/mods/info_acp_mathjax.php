@@ -32,8 +32,8 @@ $lang = array_merge($lang, array(
 // ACP Vars
 	'ACP_MATHJAX'					=> 'MathJax',
 	'ACP_MATHJAX_CAT'				=> 'MATHJAX',
-	'ACP_MATHJAX_SETTINGS'			=> 'Configuração geral',
-	'ACP_MATHJAX_BBCODES'			=> 'Configuração dos BBCodes',
+	'ACP_MATHJAX_SETTINGS'			=> 'Configuração',
+	'ACP_MATHJAX_BBCODES'			=> 'BBCodes',
 	'ACP_MATHJAX_EXTENSIONS'		=> 'Extensões do MathJax',
 	'LOG_CONFIG_MATHJAX'			=> '<strong>Configurações da integração do MathJax alteradas.</strong>',
 	
@@ -57,7 +57,7 @@ $lang = array_merge($lang, array(
 	'MATHJAX_SETTINGS'				=> 'Configuração Geral do MathJax',
 	'MATHJAX_SETTINGS_EXPLAIN'		=> 'Aqui pode configurar a integração do MathJax com fórum.',
 	'MATHJAX_BBCODE'				=> 'Configuração de BBCodes Matemáticas',
-	'MATHJAX_BBCODE_EXPLAIN'		=> 'Aqui pode criar bbcodes para usar com o phpBB2jax.',
+	'MATHJAX_BBCODE_EXPLAIN'		=> 'Aqui pode criar BBCodes para usar com o phpBB2jax.',
 	
 	'GENERAL_SETTINGS'				=> 'Configuração Geral',
 	'SERVER_SETTINGS'				=> 'Configuração do Servidor',
@@ -70,11 +70,11 @@ $lang = array_merge($lang, array(
 	'MATHJAX_CDN_FORCE_SSL'			=> 'Force uma ligação segura à <abbr title="Rede de Distribuição de Conteúdo">CDN</abbr>',
 	'MATHJAX_CDN_FORCE_SSL_EXPLAIN'	=> 'Use uma ligação por HTTPS mesmo que o forum não use uma ligação segura.',
 	'MATHJAX_URI'					=> 'Caminho para a pasta do MathJax',
-	'MATHJAX_URI_EXPLAIN'			=> 'Se não usa a <abbr title="Rede de Distribuição de Conteúdo">CDN</abbr>, tem que introduzir o caminho para a sua instalação local e.g. <samp>assets/javascript/MathJax</samp>. Se usar a <abbr title="Rede de Distribuição de Conteúdo">CDN</abbr> pode, na mesma, introduzir o caminho para o caso da <abbr title="Rede de Distribuição de Conteúdo">CDN</abbr> estar offline. <br /> ',
+	'MATHJAX_URI_EXPLAIN'			=> 'Se não usa a <abbr title="Rede de Distribuição de Conteúdo">CDN</abbr>, tem que introduzir o caminho para a sua instalação local e.g. <samp>assets/javascript/MathJax</samp>. <br /> Se usa a <abbr title="Rede de Distribuição de Conteúdo">CDN</abbr> pode, na mesma, introduzir o caminho para o caso da <abbr title="Rede de Distribuição de Conteúdo">CDN</abbr> estar offline. <br /> ',
 	'MATHJAX_DYNAMIC_LOAD'			=> 'Carregar o MathJax dinamicamente',
 	'MATHJAX_DYNAMIC_LOAD_EXPLAIN'	=> 'O código JavaScript apenas é carregado pelo browser se houver BBCodes para serem processadas na página.',
 	'MATHJAX_CONFIG'				=> 'Ficheiro de configuração',
-	'MATHJAX_CONFIG_EXPLAIN'		=> 'O nome do ficheiro de configuração do MathJax e.g. <samp>TeX-AMS-MML_HTMLorMML</samp>. Valores e sintaxe válida é explicada na <a href="http://www.mathjax.org/docs/1.1/configuration.html#using-a-configuration-file">documentação</a>.',
+	'MATHJAX_CONFIG_EXPLAIN'		=> 'O nome do ficheiro de configuração do MathJax e.g. <samp>TeX-AMS-MML_HTMLorMML</samp>. Valores e sintaxe válida são explicados na <a href="http://www.mathjax.org/docs/1.1/configuration.html#using-a-configuration-file">documentação</a>.',
 	
 // BBCode Settings
 	'MATHJAX_BBCODE_TYPE'				=> 'Tipo de Matemática',
@@ -84,7 +84,7 @@ $lang = array_merge($lang, array(
 	'MATHJAX_BBCODE_HELPLINE'			=> 'Texto de ajuda', 
 	'MATHJAX_BBCODE_HELPLINE_EXPLAIN'	=> 'Neste campo deve ser inserido o texto mostrado quando se coloca o cursor sobe o BBCode no editor.',
 	'MATHJAX_PREVIEW'					=> 'Texto de pré-visualização',
-	'MATHJAX_PREVIEW_EXPLAIN'			=> 'Por defeito o código matemático é mostrado antes dos símbolos matemáticos estarem prontos. Pode meter neste campo um texto para pré-visualização e.g. <samp>[A processar..]</samp>. Se não pretende qualquer tipo de visualização use <samp>{NONE}</samp>.',
+	'MATHJAX_PREVIEW_EXPLAIN'			=> 'Por defeito o código matemático é mostrado antes dos símbolos matemáticos estarem prontos. <br /> Pode meter neste campo um texto para pré-visualização e.g. <samp>[Processando]</samp>. Se não pretende qualquer tipo de visualização use <samp>{NONE}</samp>.',
 	'MATH_TYPE_TEX'						=> 'LaTeX',
 	'MATH_TYPE_MML'						=> 'MathML',
 	'BBCODE_TAG'						=> 'TAG',
@@ -93,15 +93,15 @@ $lang = array_merge($lang, array(
 // UMIL
 	'MATHJAX'					=> 'Mathjax phpBB Integration',
 	'INSTALL_MATHJAX'			=> 'Instale a integração do MathJax com o phpBB',
-	'INSTALL_MATHJAX_CONFIRM'	=> 'Têm a certeze que pretende instalar este mod? Após a instalação pde configurá-lo na categoria dos mods no ACP.',
+	'INSTALL_MATHJAX_CONFIRM'	=> 'Têm a certeza que pretende instalar este mod? Após a instalação pde configurá-lo na categoria dos mods no ACP.',
 	'UPDATE_MATHJAX'			=> 'Actualização da integração do MathJax',
 	'UPDATE_MATHJAX_CONFIRM'	=> 'Têm a certeza que pretende actualizar este mod?',
 	'UNINSTALL_MATHJAX'			=> 'Remover a integração do MathJax',
-	'UNINSTALL_MATHJAX_CONFIRM'	=> 'Têm a certeza que pretende remover este mod? Todas as configurações e bbcodes matemáticos serão eliminados.',
+	'UNINSTALL_MATHJAX_CONFIRM'	=> 'Têm a certeza que pretende remover este mod? Todas as configurações e BBCodes matemáticos serão eliminados.',
 	
 // UMIL custom functions
 	'UMIL_REMOVE_BBCODES'		=> 'Removendo todos os BBCodes matemáticos.',
-	'UMIL_ADD_BBCODE_TABLE'		=> 'Introduzindo a coluna is_math column table, se esta não existir.',
+	'UMIL_ADD_BBCODE_TABLE'		=> 'Introduzindo a coluna is_math, na tabela dos BBCodes, se esta não existir.',
 	'UMIL_CONFIG_REMOVE'		=> 'Removendo a configuração básica do Mathjax.',
 	'UMIL_CONFIG_ADD'			=> 'Adicionando a configuração básica do MathJax',
 	'UMIL_BBCODE_ADD'			=> 'Adicionando o BBCode %s pré-configurado.',
