@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd ../modx-1.2.5.xsd ">
+	<header>
+		<license>GNU General Public License v2</license>
+		<title lang="en">Instalation for the SubSilver2 Template</title>
+		<description lang="en">These instructions should work in any template.</description>
+		<author-group>
+			<author>
+				<realname>Sérgio Faria</realname>
+				<username>sergio91pt</username>
+				<homepage>https://github.com/sergio91pt/MathJax-phpBB-Integration</homepage>
+				<email>sergio91pt@gmail.com</email>
+			</author>
+		</author-group>
+		<link-group>
+			<link href="../install_mod.xml" type="parent" lang="en">Installation page</link>
+			<link href="0.1.1_to_0.2.0/update.xml" type="parent" lang="en">Update from v0.1.1 to v0.2.0</link>
+		</link-group>
+		<mod-version>0.2.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>60</time>
+			<target-version>3.0.9</target-version>
+		</installation>
+	</header>
+	<action-group>
+		<copy>
+			<file to="styles/subsilver2/template/mathjax.html" from="root/styles/prosilver/template/mathjax.html"/>
+		</copy>
+		<open src="styles/subsilver2/template/overall_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- IF S_ENABLE_MATHJAX -->
+<!-- INCLUDE mathjax.html -->
+<!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+	</action-group>
+</mod>
