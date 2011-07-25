@@ -20,7 +20,6 @@ phpBB modification that enables users to post beautiful math in LaTeX and MathML
 
 ### Instalation: ###
 * Use [AutoMOD][7] or open `install_mod.xml` in your browser and follow the instructions
- * Note: `contrib/modx.prosilver.en.xsl` must be present or the xml files wont render.
 * Complete the installation by running the php file mentioned, if any.
 * Links to additional languages, themes, optional modifications and update instructions can be found in the mentioned xml file.
 * You may check the [Wiki][8] for optimization tricks and special use-cases.

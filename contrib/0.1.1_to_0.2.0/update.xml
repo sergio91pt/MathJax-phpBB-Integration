@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd ">
+	<header>
+		<license>GNU General Public License v2</license>
+		<title lang="en">MathJax phpBB Integration</title>
+		<description lang="en">Enables users to post math in LaTeX and MathML, using the MathJax JavaScript Library.</description>
+		<author-group>
+			<author>
+				<realname>Sérgio Faria</realname>
+				<username>sergio91pt</username>
+				<homepage>https://github.com/sergio91pt/MathJax-phpBB-Integration</homepage>
+				<email>sergio91pt@gmail.com</email>
+			</author>
+		</author-group>
+		<link-group>
+			<link href="../../install_mod.xml" type="parent" lang="en">Installation page</link>
+			<link href="pt.xml" type="language" lang="en">Portuguese Translation</link>
+		</link-group>
+		<mod-version>0.2.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>720</time>
+			<target-version>3.0.9</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2011-07-08</date>
+				<rev-version>0.1.1</rev-version>
+				<changelog lang="en">
+					<change>Fixed 2 wrong variable names on add_table_entries.php</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2011-07-08</date>
+				<rev-version>0.1.0</rev-version>
+				<changelog lang="en">
+					<change>Initial Release.</change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/umil/*.*" to="umil/*.*"/>
+			<file from="root/adm/*.*" to="adm/*.*"/>
+			<file from="root/includes/*.*" to="includes/*.*"/>
+			<file from="root/language/en/*.*" to="language/en/*.*"/>
+			<file from="root/styles/prosilver/*.*" to="styles/prosilver/*.*"/>
+			<file from="root/assets/javascript/phpbb2jax-combined-min.js" to="assets/javascript/phpbb2jax-combined-min.js"/>
+			<file from="root/mathjax_install.php" to="mathjax_install.php"/>
+		</copy>
+		<delete>
+			<file name="language/en/mods/mathjaxbb.php"/>
+		</delete>
+		<open src="includes/bbcode.php">
+			<edit>
+				<find><![CDATA[					if (isset($rowset[$bbcode_id]))
+					{]]></find>
+				<action type="replace-with"><![CDATA[					global $config;
+
+					if (isset($rowset[$bbcode_id]))
+					{
+						if (!empty($config['mathjax_enable']) && !empty($rowset[$bbcode_id]['is_math'])) 
+						{
+							$template->assign_var('S_ENABLE_MATHJAX', true);
+						}
+]]></action>
+			</edit>
+		</open>
+		<open src="includes/functions.php">
+			<edit>
+				<find><![CDATA[		$s_search_hidden_fields['sid'] = $_SID;
+	}]]></find>
+				<action type="after-add"><![CDATA[
+	// Start 'building' Mathjax url
+	if (!empty($config['mathjax_enable']))
+	{
+		$mathjax_file = (!empty($config['mathjax_config'])) ? '/MathJax.js?config=' . $config['mathjax_config'] : '/MathJax.js';
+		
+		if(!empty($config['mathjax_use_cdn']))
+		{
+			if(!empty($config['mathjax_cdn_force_ssl']))
+			{
+				$mathjax_uri = $config['mathjax_cdn_ssl'];
+			}
+			else
+			{
+				$server_protocol = ($config['server_protocol']) ? $config['server_protocol'] : (($config['cookie_secure']) ? 'https://' : 'http://');
+				$mathjax_uri = ($server_protocol === 'http://') ? $config['mathjax_cdn'] : $config['mathjax_cdn_ssl'];
+			}
+			$mathjax_uri_fallback = (!empty($config['mathjax_uri'])) ? ($config['mathjax_uri'] . $mathjax_file) : ''; 
+		}
+		else
+		{
+			$mathjax_uri = isset($config['mathjax_uri']) ? $config['mathjax_uri'] : '';
+		}
+
+		$mathjax_uri = $mathjax_uri . $mathjax_file;
+		
+		if(empty($config['mathjax_dynamic_load']))
+		{
+			$template->assign_var('S_ENABLE_MATHJAX', true);
+		}
+	}]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		'U_FEED'				=> generate_board_url() . "/feed.$phpEx",]]></find>
+				<action type="after-add"><![CDATA[		'U_MATHJAX'				=> (isset($mathjax_uri)) ? $mathjax_uri : '',
+		'UA_MATHJAX_FALLBACK'	=> (isset($mathjax_uri_fallback)) ? $mathjax_uri_fallback : '',
+
+		'S_MATHJAX_HAS_FALLBACK'=> (!empty($mathjax_uri_fallback)) ? true : false,]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		'S_SEARCH_HIDDEN_FIELDS'	=> build_hidden_fields($s_search_hidden_fields),]]></find>
+				<action type="after-add"><![CDATA[		'T_ASSETS_PATH'      	=> "{$web_path}assets",]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/overall_header.html">
+			<edit>
+				<find><![CDATA[<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+    	tex2jax: {
+      		inlineMath: [ ["[latex]", "[/latex]"], ["[LaTeX]", "[/LaTeX]"] ],
+      		displayMath: [ ["[latexb]", "[/latexb]"] ],
+      		processEscapes: false
+    	}
+	});
+</script>
+<script type="text/javascript" src="{U_MATHJAX}"></script>]]></find>
+				<action type="replace-with"><![CDATA[<!-- INCLUDE mathjax.html -->]]></action>
+			</edit>
+		</open>
+		<open src="posting.php">
+			<edit>
+				<remove><![CDATA[	}
+
+	// Check if MathJax is enabled
+	if ($config['mathjax_enable_post'] == true)
+	{
+		if($config['mathjax_use_cdn'] == true)
+		{
+			$server_protocol = ($config['server_protocol']) ? $config['server_protocol'] : (($config['cookie_secure']) ? 'https://' : 'http://');
+			$mathjax_uri = ($server_protocol === 'http://') ? $config['mathjax_cdn'] : $config['mathjax_cdn_ssl'];
+		}
+		else
+		{
+			$mathjax_uri = $config['mathjax_uri'];
+		}
+
+		$mathjax_uri .= ($config['mathjax_config']) ? '/MathJax.js?config=' . $config['mathjax_config'] : '/MathJax.js';]]></remove>
+			</edit>
+		</open>
+		<open src="viewtopic.php">
+			<edit>
+				<remove><![CDATA[// Check if MathJax is enabled
+if ($config['mathjax_enable_post'] == true)
+{
+	if($config['mathjax_use_cdn'] == true)
+	{
+		$server_protocol = ($config['server_protocol']) ? $config['server_protocol'] : (($config['cookie_secure']) ? 'https://' : 'http://');
+		$mathjax_uri = ($server_protocol === 'http://') ? $config['mathjax_cdn'] : $config['mathjax_cdn_ssl'];
+	}
+	else
+	{
+		$mathjax_uri = $config['mathjax_uri'];
+	}
+
+	$mathjax_uri .= ($config['mathjax_config']) ? '/MathJax.js?config=' . $config['mathjax_config'] : '/MathJax.js';
+}]]></remove>
+			</edit>
+			<edit>
+				<remove><![CDATA[	'S_ENABLE_MATHJAX'		=> (isset($mathjax_uri)) ? true : false,
+	'U_MATHJAX'				=> (isset($mathjax_uri)) ? $mathjax_uri : '',]]></remove>
+			</edit>
+		</open>
+		<open src="includes/acp/acp_board.php">
+			<edit>
+				<remove><![CDATA[						'mathjax_enable_pm'		=> array('lang' => 'MATHJAX_ENABLE_PM',		'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),]]></remove>
+			</edit>
+			<edit>
+				<remove><![CDATA[						'mathjax_enable_post'	=> array('lang' => 'MATHJAX_ENABLE_POST',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => false),]]></remove>
+			</edit>
+			<edit>
+				<remove>						'legend4'				=> 'MATHJAX_SETTINGS', 
+						'mathjax_use_cdn'		=> array('lang' => 'MATHJAX_USE_CDN',	'validate' => 'bool',	'type' => 'radio:yes_no', 	'explain' => true),
+						'mathjax_uri'			=> array('lang' => 'MATHJAX_URI',		'validate' => 'rpath',	'type' => 'text:20:255',	'explain' => true),
+						'mathjax_config'		=> array('lang' => 'MATHJAX_CONFIG',	'validate' => 'string',	'type' => 'text:20:255',	'explain' => true),</remove>
+			</edit>
+			<edit>
+				<find><![CDATA[						'legend5'					=> 'ACP_SUBMIT_CHANGES',]]></find>
+				<inline-edit>
+					<inline-find>legend5</inline-find>
+					<inline-action type="replace-with">legend4</inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="includes/ucp/ucp_pm_compose.php">
+			<edit>
+				<remove><![CDATA[		// Check if MathJax is enabled
+		if ($config['mathjax_enable_pm'] == true)
+		{
+			if($config['mathjax_use_cdn'] == true)
+			{
+				$server_protocol = ($config['server_protocol']) ? $config['server_protocol'] : (($config['cookie_secure']) ? 'https://' : 'http://');
+				$mathjax_uri = ($server_protocol === 'http://') ? $config['mathjax_cdn'] : $config['mathjax_cdn_ssl'];
+			}
+			else
+			{
+				$mathjax_uri = $config['mathjax_uri'];
+			}
+
+			$mathjax_uri .= ($config['mathjax_config']) ? '/MathJax.js?config=' . $config['mathjax_config'] : '/MathJax.js';
+		}]]></remove>
+			</edit>
+			<edit>
+				<remove><![CDATA[		'S_ENABLE_MATHJAX'		=> (isset($mathjax_uri)) ? true : false,
+		'U_MATHJAX'				=> (isset($mathjax_uri)) ? $mathjax_uri : '',]]></remove>
+			</edit>
+		</open>
+		<open src="includes/ucp/ucp_pm_viewmessage.php">
+			<edit>
+				<remove><![CDATA[	// Check if MathJax is enabled
+	if ($config['mathjax_enable_pm'] == true)
+	{
+		if($config['mathjax_use_cdn'] == true)
+		{
+			$server_protocol = ($config['server_protocol']) ? $config['server_protocol'] : (($config['cookie_secure']) ? 'https://' : 'http://');
+			$mathjax_uri = ($server_protocol === 'http://') ? $config['mathjax_cdn'] : $config['mathjax_cdn_ssl'];
+		}
+		else
+		{
+			$mathjax_uri = $config['mathjax_uri'];
+		}
+
+		$mathjax_uri .= ($config['mathjax_config']) ? '/MathJax.js?config=' . $config['mathjax_config'] : '/MathJax.js';
+	}]]></remove>
+			</edit>
+			<edit>
+				<remove><![CDATA[		'S_ENABLE_MATHJAX'		=> (isset($mathjax_uri)) ? true : false,
+		'U_MATHJAX'				=> (isset($mathjax_uri)) ? $mathjax_uri : '',]]></remove>
+			</edit>
+		</open>
+		<open src="language/en/acp/board.php">
+			<edit>
+				<remove><![CDATA[
+$lang = array_merge($lang, array(
+	'MATHJAX_ENABLE_PM'			=> 'Allow <code>[LaTeX]</code> in private messages',
+	'MATHJAX_ENABLE_POST'				=> 'Allow use of <code>[LaTeX]</code>',
+	'MATHJAX_SETTINGS'			=> 'MathJax Integration Settings',
+	'MATHJAX_USE_CDN'			=> 'Use Mathjax CDN',
+	'MATHJAX_USE_CDN_EXPLAIN'	=> 'By selecting this option, you hereby agree to its <a href="http://www.mathjax.org/download/mathjax-cdn-terms-of-service/" alt="MathJax CDN TOS">TOS</a>.',
+	'MATHJAX_URI'				=> 'MathJax Instalation Path',
+	'MATHJAX_URI_EXPLAIN'		=> 'Path under your phpBB root directory, e.g. <samp>mathjax/</samp>.',
+	'MATHJAX_CONFIG'			=> 'Config file',
+	'MATHJAX_CONFIG_EXPLAIN'	=> 'Default is <samp>TeX-AMS-MML_HTMLorMML</samp>. Valid syntax explained in the <a href="http://www.mathjax.org/docs/1.1/configuration.html#using-a-configuration-file" alt="MathJax Docs">Documentation</a>.',
+));]]></remove>
+			</edit>
+		</open>
+		<php-installer><![CDATA[mathjax_install.php]]></php-installer>
+		
+	</action-group>
+</mod>

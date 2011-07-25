@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd ">
+	<header>
+		<license>GNU General Public License v2</license>
+		<title lang="en">Portuguese translation</title>
+		<title lang="pt">Tradução para Português</title>
+		<description lang="en">Portuguese language update for the MathJax phpBB integration mod.</description>
+		<description lang="pt">Actualização à tradução para Português do mod para integração do MathJax.</description>
+		<author-group>
+			<author>
+				<realname>Sérgio Faria</realname>
+				<username>sergio91pt</username>
+				<homepage>https://github.com/sergio91pt/MathJax-phpBB-Integration</homepage>
+				<email>sergio91pt@gmail.com</email>
+			</author>
+		</author-group>
+		<link-group>
+			<link href="../../install_mod.xml" type="parent" lang="en">Installation page</link>
+			<link href="../../install_mod.xml" type="parent" lang="pt">Página de Instalação</link>
+			<link href="update.xml" type="dependency" lang="en">Update from v0.1.1 to v0.2.0</link>
+			<link href="update.xml" type="dependency" lang="pt">Página de actualização de v0.1.1 para v0.2.0</link>
+		</link-group>
+		<mod-version>0.2.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>60</time>
+			<target-version>3.0.9</target-version>
+		</installation>
+	</header>
+	<action-group>
+		<copy>
+			<file to="language/pt/mods/info_acp_mathjax.php" from="root/language/pt/mods/info_acp_mathjax.php"/>
+		</copy>
+		<open src="language/pt/acp/board.php">
+			<edit>
+				<remove><![CDATA[
+$lang = array_merge($lang, array(
+	'MATHJAX_ENABLE_POST'					=> 'Permitir o uso da Tag BBCode <b>[LaTeX]</b> nas Mensagens',
+	'MATHJAX_ENABLE_PM'						=> 'Permitir LaTeX nas Mensagens Privadas',
+	'MATHJAX_SETTINGS'						=> 'Configuração da integração com o MathJax',
+	'MATHJAX_USE_CDN'						=> 'Use a CDN da Mathjax',
+	'MATHJAX_USE_CDN_EXPLAIN'				=> 'Ao selecionar esta opção, você implicitamente concorda com o <a href="http://www.mathjax.org/download/mathjax-cdn-terms-of-service/" alt="MathJax CDN TOS">TOS</a>.',
+	'MATHJAX_URI'							=> 'Diretoria de Instalação do MathJax',
+	'MATHJAX_URI_EXPLAIN'					=> 'Diretoria sob a diretoria raiz do phpBB. Exemplo: <b>mathjax/</b>.',
+	'MATHJAX_CONFIG'						=> 'Ficheiro de Configuração',
+	'MATHJAX_CONFIG_EXPLAIN'				=> 'O normal é <b>TeX-AMS-MML_HTMLorMML</b>. Sintaxe, válida para este campo, é explicada na <a href="http://www.mathjax.org/docs/1.1/configuration.html#using-a-configuration-file" alt="MathJax Docs">Documentação</a>.',
+));]]></remove>
+			</edit>
+		</open>
+	</action-group>
+</mod>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd ../modx-1.2.5.xsd">
+	<header>
+		<license>GNU General Public License v2</license>
+		<title lang="en">Hide Math BBCodes in the ACP</title>
+		<description lang="en">Hides math bbcodes in the ACP BBCode pages to prevent bad edits.</description>
+		<author-group>
+			<author>
+				<realname>Sérgio Faria</realname>
+				<username>sergio91pt</username>
+				<homepage>https://github.com/sergio91pt/MathJax-phpBB-Integration</homepage>
+				<email>sergio91pt@gmail.com</email>
+			</author>
+		</author-group>
+		<author-notes lang="en">Math BBCodes should only be changed on .MODS->MATHJAX->BBCodes Settings.</author-notes>
+		<link-group>
+			<link href="../install_mod.xml" type="parent" lang="en">Installation page</link>
+		</link-group>
+		<mod-version>0.2.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>180</time>
+			<target-version>3.0.9</target-version>
+		</installation>
+	</header>
+	<action-group>
+		<open src="includes/acp/acp_bbcodes.php">
+			<edit>
+				<find><![CDATA[		add_form_key($form_key);]]></find>
+				<action type="after-add"><![CDATA[		// Create an array to declare ignored ids
+		$ignore = array();
+		$sql = 'SELECT bbcode_id
+			FROM ' . BBCODES_TABLE . ' 
+			WHERE is_math = 1';
+		$result = $db->sql_query($sql);
+
+		while($ignore_id = $db->sql_fetchfield('bbcode_id'))
+		{
+			$ignore[] = $ignore_id;
+		}
+		$db->sql_freeresult($result);]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[				if (!$row)]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[				if (!$row]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ || in_array($bbcode_id, $ignore)]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[				if (!$row)]]></find>
+				<comment lang="en">This is the second occurrence of the string above.</comment>
+				<inline-edit>
+					<inline-find><![CDATA[				if (!$row]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ || in_array($bbcode_id, $ignore)]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[		while ($row = $db->sql_fetchrow($result))
+		{]]></find>
+				<action type="after-add"><![CDATA[			if(in_array($row['bbcode_id'], $ignore))
+			{
+				continue;
+			}
+				]]></action>
+			</edit>
+		</open>
+	</action-group>
+</mod>
