@@ -45,9 +45,9 @@ $version_config_name = 'mathjax_mod_version';
 // Lets fix the bad config name in v0.1.0 and v0.1.1 before continuing
 if (isset($config['mathjax_mod_version_version']))
 {
-	$sql = 'UPDATE ' . CONFIG_TABLE . ' 
-		SET config_name = ' . $version_config_name . ' 
-		WHERE config_name = mathjax_mod_version_version';
+	$sql = 'UPDATE ' . CONFIG_TABLE . " 
+		SET config_name = '$version_config_name'" . ' 
+		WHERE config_name = "mathjax_mod_version_version"';
 	$db->sql_query($sql);
 	$cache->destroy('config');
 } 

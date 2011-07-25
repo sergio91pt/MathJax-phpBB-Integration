@@ -187,17 +187,17 @@ class acp_mathjax
 		}
 
 		// Lets check if the path entered isn't valid and if we're gonna complain
-		if ($submit && $mode = 'settings' && !validate_mathjax_path($cfg_array['mathjax_uri']))
+		if ($submit && $mode == 'settings' && !validate_mathjax_path($cfg_array['mathjax_uri']))
 		{
 			// If the user left it blank but enabled the cdn we won't complain but...
 			if (!empty($mathjax_uri))
 			{
-				$error = $user->lang['INVALID_MATHJAX_PATH'];
+				$error[] = $user->lang['INVALID_MATHJAX_PATH'];
 				$mathjax_uri = '';
 			}
 			else if ($mathjax_use_cdn == false)
 			{
-				$error = $user->lang['MUST_CONFIGURE_MATHJAX'];
+				$error[] = $user->lang['MUST_CONFIGURE_MATHJAX'];
 			}
 		}
 		
