@@ -28,7 +28,7 @@ if (!file_exists($phpbb_root_path . 'umil/umil_auto.' . $phpEx))
 }
 else if (!file_exists($phpbb_root_path . 'includes/functions_mathjax.' . $phpEx))
 {
-	trigger_error('Please follow the instalation instructions in install_mod.xml.<br>A critical file wasn\'t found on your forum.', E_USER_WARNING);
+	trigger_error('Please follow the instalation instructions in install_mod.xml. <br /> A critical file wasn\'t found on your forum.', E_USER_WARNING);
 }
 
 include($phpbb_root_path . 'includes/functions_mathjax.' . $phpEx);

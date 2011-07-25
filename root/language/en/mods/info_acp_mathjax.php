@@ -45,7 +45,7 @@ $lang = array_merge($lang, array(
 	'BBCODE_DOESNT_EXIST'		=> 'The requested math BBCode doesn\'t exist',
 	'BBCODE_NOT_MATH_TPL'		=> 'The request bbcode doesn\'t seem to be a math bbcode although is marked as such.',
 	'INVALID_MATHJAX_PATH'		=> 'The entered path doesn\'t contain a valid MathJax installation',
-	'MUST_CONFIGURE_MATHJAX'	=> 'The entered path doesn\'t contain a valid MathJax installation and the CDN is disabled.<br>Please enter a valid path to your MathJax local installation or use the CDN.',
+	'MUST_CONFIGURE_MATHJAX'	=> 'The entered path doesn\'t contain a valid MathJax installation and the <abbr title="Content Distribution Network">CDN</abbr> is disabled. <br /> >Please enter a valid path to your MathJax local installation or use the <abbr title="Content Distribution Network">CDN</abbr>.',
 	
 // Confirm boxes & notice msg
 	'BBCODE_DELETE_CONFIRM'		=> 'Are you sure you want to delete the %s bbcode?',
@@ -65,12 +65,12 @@ $lang = array_merge($lang, array(
 
 // General Settings
 	'MATHJAX_ENABLE'				=> 'Enable MathJax',
-	'MATHJAX_USE_CDN'				=> 'Use the Mathjax CDN',
-	'MATHJAX_USE_CDN_EXPLAIN'		=> 'By selecting this option, you hereby agree to its <a href="http://www.mathjax.org/download/mathjax-cdn-terms-of-service/">TOS</a>.',
-	'MATHJAX_CDN_FORCE_SSL'			=> 'Force HTTPS connection to the CDN',
+	'MATHJAX_USE_CDN'				=> 'Use the Mathjax <abbr title="Content Distribution Network">CDN</abbr>',
+	'MATHJAX_USE_CDN_EXPLAIN'		=> 'By selecting this option, you hereby agree to its <a href="http://www.mathjax.org/download/mathjax-cdn-terms-of-service/"><abbr title="Terms of Service">TOS</abbr></a>.',
+	'MATHJAX_CDN_FORCE_SSL'			=> 'Force a secure connection to the <abbr title="Content Distribution Network">CDN</abbr>',
 	'MATHJAX_CDN_FORCE_SSL_EXPLAIN'	=> 'Force HTTPS even if your board doesn\'t use a secure connection.',
 	'MATHJAX_URI'					=> 'MathJax Instalation Path',
-	'MATHJAX_URI_EXPLAIN'			=> 'If you don\'t use the CDN, you\'ll need to enter the path to your local instalation, e.g. <samp>javascript/mathjax</samp>.<br>If you do use the CDN, this will be used for fallback purposes.',
+	'MATHJAX_URI_EXPLAIN'			=> 'If you don\'t use the <abbr title="Content Distribution Network">CDN</abbr>, you\'ll need to enter the path to your local instalation, e.g. <samp>javascript/mathjax</samp>. <br /> If you do use the <abbr title="Content Distribution Network">CDN</abbr>, this will be used for fallback purposes.',
 	'MATHJAX_DYNAMIC_LOAD'			=> 'Dynamically load MathJax',
 	'MATHJAX_DYNAMIC_LOAD_EXPLAIN'	=> 'Only loads MathJax if theres a math bbcode to be processed.',
 	'MATHJAX_CONFIG'				=> 'Configuration File',
