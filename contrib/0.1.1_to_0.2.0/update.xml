@@ -45,6 +45,7 @@
 					<change>Added validation to the library path.</change>
 					<change>Added a configuration form to UMIL.</change>
 					<change>Added support for the Version check Mod.</change>
+					<change>Removed support for LaTeX display math.</change>
 				</changelog>
 			</entry>
 			<entry>
