@@ -39,7 +39,7 @@
 					<change>Added option to force HTTPS on the CDN.</change>
 					<change>Flawless dynamic loading with the option to disable it.</change>
 					<change>Removed options to disable for posts and BBCodes in favor of a global one.</change>
-					<change>Now it uses the native phpBB BBCode system, introducing the concept of math BBCodes and fixing the flaws of he old method.</change>
+					<change>Now it uses the native phpBB BBCode system, introducing the concept of math BBCodes and fixing the flaws of the old method.</change>
 					<change>Added an option to specify a static preview for each BBCode.</change>
 					<change>Removed as much as possible edits to core files.</change>
 					<change>Added validation to the library path.</change>
