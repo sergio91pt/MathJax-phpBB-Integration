@@ -27,6 +27,7 @@
 		<history>
 			<entry>
 				<date>2011-08-01</date>
+				<rev-version>0.2.1</rev-version>
 				<changelog lang="en">
 					<change>Fixed: Chromium not displaying math</change>
 				</changelog>
