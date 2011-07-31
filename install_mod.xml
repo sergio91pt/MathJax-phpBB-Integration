@@ -19,17 +19,24 @@
 		</author-group>
 		<link-group>
 			<link href="contrib/0.1.1_to_0.2.0/update.xml" type="contrib" lang="en">Update from v0.1.1 to v0.2.0</link>
+			<link href="contrib/0.2.0_to_0.2.1/update.xml" type="contrib" lang="en">Update from v0.2.0 to v0.2.1</link>
 			<link href="contrib/acp_bbcodes.xml" type="contrib" lang="en">Hide math BBCodes in acp_bbcodes</link>
 			<link href="contrib/pt.xml" type="language" lang="en">Portuguese Translation</link>
 			<link href="contrib/subsilver2.xml" type="template" lang="en">subsilver2</link>
 		</link-group>
-		<mod-version>0.2.0</mod-version>
+		<mod-version>0.2.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
 			<target-version>3.0.9</target-version>
 		</installation>
 		<history>
+			<entry>
+				<date>2011-08-01</date>
+				<changelog lang="en">
+					<change>Fixed: Chromium not displaying math</change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-07-25</date>
 				<rev-version>0.2.0</rev-version>

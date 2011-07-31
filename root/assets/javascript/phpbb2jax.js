@@ -39,7 +39,6 @@ function getElementsByClassName(className, tag)
 	else 
 	{
 		// fallback
-		
 		var list = new Array();
 		if (!tag)
 		{
@@ -62,10 +61,11 @@ function getElementsByClassName(className, tag)
 }
 
 function getText(node)
-{	
-	if(node.innerText !== undefined)
+{
+	// Test textContent because Chrome returns an empty string on innerText
+	if(node.textContent !== undefined)
 	{
-		return node.innerText; // IE
+		return node.textContent;
 	}
-	return node.textContent;
+	return node.innerText; // IE
 }

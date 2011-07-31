@@ -24,13 +24,9 @@ phpBB modification that enables users to post beautiful math in LaTeX and MathML
 * Links to additional languages, themes, optional modifications and update instructions can be found in the mentioned xml file.
 * You may check the [Wiki][8] for optimization tricks and special use-cases.
 
-### Notes: ###
-* All git branches are intended for *development purposes only* and may be incomplete and/or broken between releases.
- * Please download a [tagged version][9] instead.
-
 *****************
 
-![Screenshot][10]
+![Screenshot][9]
 
  [1]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/phpbb.png
  [2]: http://www.phpbb.com
@@ -40,5 +36,4 @@ phpBB modification that enables users to post beautiful math in LaTeX and MathML
  [6]: http://www.mathjax.org/download/mathjax-cdn-terms-of-service/
  [7]: http://www.phpbb.com/mods/automod/
  [8]: https://github.com/sergio91pt/MathJax-phpBB-Integration/wiki
- [9]: https://github.com/sergio91pt/MathJax-phpBB-Integration/archives/master
- [10]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/screenshot2.png
+ [9]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/screenshot2.png
