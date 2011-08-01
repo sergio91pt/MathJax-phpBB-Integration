@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
 <!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
-<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd ../../modx-1.2.5.xsd ">
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd ../modx-1.2.5.xsd ">
 	<header>
 		<license>GNU General Public License v2</license>
 		<title lang="en">MathJax phpBB Integration - Update from v0.2.0 to v0.2.1</title>
@@ -16,7 +16,7 @@
 			</author>
 		</author-group>
 		<link-group>
-			<link href="../../install_mod.xml" type="parent" lang="en">Installation page</link>
+			<link href="../install_mod.xml" type="parent" lang="en">Installation page</link>
 		</link-group>
 		<mod-version>0.2.1</mod-version>
 		<installation>
@@ -71,6 +71,8 @@
 	<action-group>
 		<copy>
 			<file from="root/assets/javascript/phpbb2jax-combined-min.js" to="assets/javascript/phpbb2jax-combined-min.js"/>
+			<file from="root/mathjax_install.php" to="mathjax_install.php"/>
 		</copy>
+		<php-installer>mathjax_install.php</php-installer>
 	</action-group>
 </mod>

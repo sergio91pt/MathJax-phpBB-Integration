@@ -17,6 +17,7 @@
 		</author-group>
 		<link-group>
 			<link href="../../install_mod.xml" type="parent" lang="en">Installation page</link>
+			<link href="../update_0.2.0_to_0.2.1.xml" type="contrib" lang="en">Update from v0.2.0 to v0.2.1</link>
 			<link href="../acp_bbcodes.xml" type="contrib" lang="en">Hide math BBCodes in acp_bbcodes</link>
 			<link href="pt.xml" type="language" lang="en">Portuguese Translation</link>
 			<link href="../subsilver2.xml" type="template" lang="en">subsilver2</link>
@@ -282,6 +283,6 @@ $lang = array_merge($lang, array(
 			</edit>
 		</open>
 		<php-installer><![CDATA[mathjax_install.php]]></php-installer>
-		
+		<diy-instructions lang="en"><![CDATA[In mathjax_install click on Advanced in "Version Select" to choose v0.2.0]]></diy-instructions>
 	</action-group>
 </mod>

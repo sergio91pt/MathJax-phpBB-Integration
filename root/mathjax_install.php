@@ -98,6 +98,10 @@ $options = array(
 * The version numbering must otherwise be compatible with the version_compare function - http://php.net/manual/en/function.version-compare.php
 */
 $versions = array(
+	'0.2.1' => array(
+		// No Changes
+	),
+	
 	'0.2.0' => array(
 
 		'custom'	=> array(
