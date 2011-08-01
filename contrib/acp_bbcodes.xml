@@ -17,9 +17,11 @@
 		<author-notes lang="en">Math BBCodes should only be changed on .MODS->MATHJAX->BBCodes Settings.</author-notes>
 		<link-group>
 			<link href="../install_mod.xml" type="parent" lang="en">Installation page</link>
-			<link href="0.1.1_to_0.2.0/update.xml" type="parent" lang="en">Update from v0.1.1 to v0.2.0</link>
+			<link href="../install_mod.xml" type="parent" lang="pt">Página de instalação</link>
+			<link href="../install_mod.xml" type="dependency" lang="en">Installation page</link>
+			<link href="../install_mod.xml" type="dependency" lang="pt">Página de instalação</link>
 		</link-group>
-		<mod-version>0.2.0</mod-version>
+		<mod-version>0.2.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>180</time>
