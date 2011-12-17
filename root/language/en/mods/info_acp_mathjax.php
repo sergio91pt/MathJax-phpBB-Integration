@@ -45,7 +45,7 @@ $lang = array_merge($lang, array(
 	'BBCODE_DOESNT_EXIST'		=> 'The requested math BBCode doesn\'t exist',
 	'BBCODE_NOT_MATH_TPL'		=> 'The request bbcode doesn\'t seem to be a math bbcode although is marked as such.',
 	'INVALID_MATHJAX_PATH'		=> 'The entered path doesn\'t contain a valid MathJax installation',
-	'MUST_CONFIGURE_MATHJAX'	=> 'The entered path doesn\'t contain a valid MathJax installation and the <abbr title="Content Distribution Network">CDN</abbr> is disabled. <br /> >Please enter a valid path to your MathJax local installation or use the <abbr title="Content Distribution Network">CDN</abbr>.',
+	'MUST_CONFIGURE_MATHJAX'	=> 'The entered path doesn\'t contain a valid MathJax installation and the <abbr title="Content Distribution Network">CDN</abbr> is disabled. <br /> Please enter a valid path to your MathJax local installation or use the <abbr title="Content Distribution Network">CDN</abbr>.',
 	
 // Confirm boxes & notice msg
 	'BBCODE_DELETE_CONFIRM'		=> 'Are you sure you want to delete the %s bbcode?',
