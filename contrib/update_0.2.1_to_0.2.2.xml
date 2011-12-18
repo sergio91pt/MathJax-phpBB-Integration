@@ -70,6 +70,7 @@
 	</header>
 	<action-group>
 		<copy>
+            <file from="root/mathjax_install.php" to="mathjax_install.php"/>
 			<file from="root/assets/javascript/phpbb2jax-combined-min.js" to="assets/javascript/phpbb2jax-combined-min.js"/>
 			<file from="root/includes/acp/acp_mathjax.php" to="includes/acp/acp_mathjax.php"/>
 			<file from="root/language/en/mods/info_acp_mathjax.php" to="language/en/mods/info_acp_mathjax.php"/>
