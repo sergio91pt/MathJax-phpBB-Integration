@@ -156,5 +156,6 @@
 			</edit>
 		</open>
 		<php-installer><![CDATA[mathjax_install.php]]></php-installer>
+        <diy-instructions lang="en">After running the installer, purge the cache.</diy-instructions>
 	</action-group>
 </mod>

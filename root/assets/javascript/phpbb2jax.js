@@ -6,7 +6,7 @@
 
 function phpbb2jax()
 {
-	var list = document.getElementsByClassName("MathJaxBB", "span");
+	var list = getElementsByClassName("MathJaxBB", "span");
 
 	for (i = 0, n = list.length; i < n; ++i)
 	{
@@ -46,11 +46,11 @@ function getElementsByClassName(className, tag)
 		}
 		var ele = document.getElementsByTagName(tag);
 		var eleLen = ele.length;
-		var pattern = new RegExp("(^|\\s)" + searchClass + "(\\s|$)");
+		var pattern = new RegExp("(^|\\s)" + className + "(\\s|$)");
 		
 		for (i = 0, j = 0; i < eleLen; i++)
 		{
-			if (pattern.test(ele[i].className))
+			if (ele[i].className && pattern.test(ele[i].className))
 			{
 				list[j] = ele[i];
 				j++;
