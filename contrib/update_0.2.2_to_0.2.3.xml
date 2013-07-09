@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd" xsi:schemaLocation="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd modx-1.2.6.xsd ">
+	<header>
+		<license>GNU General Public License v2</license>
+		<title lang="en">MathJax phpBB Integration - Update from v0.2.2 to v0.2.3</title>
+		<description lang="en">Enables users to post math in LaTeX and MathML, using the MathJax JavaScript Library.</description>
+		<description lang="pt">Possibilita a utilização de LaTeX e MathML em posts, usando a biblioteca de JavaScript MathJax.</description>
+		<author-group>
+			<author>
+				<realname>Sérgio Faria</realname>
+				<username>sergio91pt</username>
+				<homepage>https://github.com/sergio91pt/MathJax-phpBB-Integration</homepage>
+				<email>sergio91pt@gmail.com</email>
+			</author>
+		</author-group>
+		<link-group>
+			<link href="../install_mod.xml" type="parent" lang="en">Installation page</link>
+		</link-group>
+		<mod-version>0.2.3</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>30</time>
+			<target-version>3.0.11</target-version>
+		</installation>
+		<history>
+			<entry>
+				<date>2013-07-09</date>
+				<rev-version>0.2.3</rev-version>
+				<changelog lang="en">
+					<change>Updated the HTTPS URL of MathJax's CDN.</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2011-12-18</date>
+				<rev-version>0.2.2</rev-version>
+				<changelog lang="en">
+					<change>Fixed settings always throwing a path error</change>
+					<change>Fixed javascript so it displays on IE 6</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2011-08-01</date>
+				<rev-version>0.2.1</rev-version>
+				<changelog lang="en">
+					<change>Fixed: Chromium not displaying math</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2011-07-25</date>
+				<rev-version>0.2.0</rev-version>
+				<changelog lang="en">
+					<change>Pretty much rewritten the mod.</change>
+					<change>Added support for MathML.</change>
+					<change>Removed MathJax pre-processors.</change>
+					<change>Created phpBB2jax, a small pre-processor that turns special span tags into math scripts.</change>
+					<change>Added option to force HTTPS on the CDN.</change>
+					<change>Flawless dynamic loading with the option to disable it.</change>
+					<change>Removed options to disable for posts and BBCodes in favor of a global one.</change>
+					<change>Now it uses the native phpBB BBCode system, introducing the concept of math BBCodes and fixing the flaws of the old method.</change>
+					<change>Added an option to specify a static preview for each BBCode.</change>
+					<change>Removed as much as possible edits to core files.</change>
+					<change>Added validation to the library path.</change>
+					<change>Added a configuration form to UMIL.</change>
+					<change>Added support for the Version check Mod.</change>
+					<change>Removed support for LaTeX display math.</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2011-07-08</date>
+				<rev-version>0.1.1</rev-version>
+				<changelog lang="en">
+					<change>Fixed 2 wrong variable names on add_table_entries.php</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2011-07-08</date>
+				<rev-version>0.1.0</rev-version>
+				<changelog lang="en">
+					<change>Initial Release.</change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/umil/*.*" to="umil/*.*"/>
+		</copy>
+		<php-installer>mathjax_install.php</php-installer>
+	</action-group>
+</mod>
