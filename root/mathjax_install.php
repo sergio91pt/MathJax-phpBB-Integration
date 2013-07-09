@@ -98,6 +98,12 @@ $options = array(
 * The version numbering must otherwise be compatible with the version_compare function - http://php.net/manual/en/function.version-compare.php
 */
 $versions = array(
+	'0.2.3' => array(
+		'config_update' => array(
+			array('mathjax_cdn_ssl', 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest'),
+		),
+	),
+
 	'0.2.2' => array(
 		// No Changes
 	),
