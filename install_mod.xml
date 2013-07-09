@@ -40,7 +40,8 @@
 				<changelog lang="en">
 					<change>Updated the HTTPS URL of MathJax's CDN.</change>
 					<change>Updated UMIL from v1.04 to v1.0.5.</change>
-					<change>Update MODX from v1.2.5 to v1.2.6.</change>
+					<change>Updated MODX from v1.2.5 to v1.2.6.</change>
+					<change>Updated the Mod version check URL.</change>
 				</changelog>
 			</entry>
 			<entry>
