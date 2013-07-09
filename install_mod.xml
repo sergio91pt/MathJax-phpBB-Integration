@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="contrib/modx.prosilver.en.xsl"?>
 <!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
-<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd modx-1.2.5.xsd ">
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd" xsi:schemaLocation="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd modx-1.2.6.xsd ">
 	<header>
 		<license>GNU General Public License v2</license>
 		<title lang="en">MathJax phpBB Integration</title>
@@ -9,6 +9,7 @@
 		<description lang="pt">Possibilita a utilização de LaTeX e MathML em posts, usando a biblioteca de JavaScript MathJax.</description>
 		<author-notes lang="en">Requires the MathJax library accessible from the forum web path or the ability to accept the CDN TOS.</author-notes>
 		<author-notes lang="pt">Requer a biblioteca MathJax acessível no seu servidor ou a aceitação dos termos de serviço da CDN da MathJax.</author-notes>
+		<github>https://github.com/sergio91pt/MathJax-phpBB-Integration</github>
 		<author-group>
 			<author>
 				<realname>Sérgio Faria</realname>
@@ -20,7 +21,7 @@
 		<link-group>
 			<link href="contrib/0.1.1_to_0.2.0/update.xml" type="contrib" lang="en">Update from v0.1.1 to v0.2.0</link>
 			<link href="contrib/update_0.2.0_to_0.2.1.xml" type="contrib" lang="en">Update from v0.2.0 to v0.2.1</link>
-            <link href="contrib/update_0.2.1_to_0.2.2.xml" type="contrib" lang="en">Update from v0.2.1 to v0.2.2</link>
+			<link href="contrib/update_0.2.1_to_0.2.2.xml" type="contrib" lang="en">Update from v0.2.1 to v0.2.2</link>
 			<link href="contrib/acp_bbcodes.xml" type="contrib" lang="en">Hide math BBCodes in acp_bbcodes</link>
 			<link href="contrib/pt.xml" type="language" lang="en">Portuguese Translation</link>
 			<link href="contrib/subsilver2.xml" type="template" lang="en">subsilver2</link>
@@ -31,7 +32,15 @@
 			<time>300</time>
 			<target-version>3.0.9</target-version>
 		</installation>
-		<history><entry><date>2011-12-18</date><rev-version>0.2.2</rev-version><changelog lang="en"><change>Fixed settings always throwing a path error</change><change>Fixed javascript so it displays on IE 6</change></changelog></entry>
+		<history>
+			<entry>
+				<date>2011-12-18</date>
+				<rev-version>0.2.2</rev-version>
+				<changelog lang="en">
+					<change>Fixed settings always throwing a path error</change>
+					<change>Fixed javascript so it displays on IE 6</change>
+				</changelog>
+			</entry>
 			<entry>
 				<date>2011-08-01</date>
 				<rev-version>0.2.1</rev-version>

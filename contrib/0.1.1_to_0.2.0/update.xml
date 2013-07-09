@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
 <!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
-<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd ../../modx-1.2.5.xsd ">
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd" xsi:schemaLocation="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd ../../modx-1.2.6.xsd ">
 	<header>
 		<license>GNU General Public License v2</license>
 		<title lang="en">MathJax phpBB Integration - Update from v0.1.1 to v0.2.0</title>
 		<description lang="en">Enables users to post math in LaTeX and MathML, using the MathJax JavaScript Library.</description>
 		<description lang="pt">Possibilita a utilização de LaTeX e MathML em posts, usando a biblioteca de JavaScript MathJax.</description>
+		<github>https://github.com/sergio91pt/MathJax-phpBB-Integration</github>
 		<author-group>
 			<author>
 				<realname>Sérgio Faria</realname>

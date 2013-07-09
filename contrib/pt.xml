@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
 <!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
-<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd" xsi:schemaLocation="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd ../modx-1.2.5.xsd ">
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd" xsi:schemaLocation="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd ../modx-1.2.6.xsd ">
 	<header>
 		<license>GNU General Public License v2</license>
 		<title lang="en">Portuguese translation</title>
 		<title lang="pt">Tradução para Português</title>
 		<description lang="en">Portuguese language for the MathJax phpBB integration mod.</description>
 		<description lang="pt">Tradução para Português do mod para integração do MathJax.</description>
+		<github>https://github.com/sergio91pt/MathJax-phpBB-Integration</github>
 		<author-group>
 			<author>
 				<realname>Sérgio Faria</realname>
