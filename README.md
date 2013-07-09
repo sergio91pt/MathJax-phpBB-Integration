@@ -1,6 +1,6 @@
 # MathJax phpBB Integration #
 
-[![Powered by phpBB][1]][2]  
+[![Powered by phpBB][1]][2]
 [![Powered by MathJax][3]][4]
 
 phpBB modification that enables users to post beautiful math in LaTeX and MathML, rendered in all major browsers using the MathJax JavaScript Library.
@@ -15,7 +15,7 @@ phpBB modification that enables users to post beautiful math in LaTeX and MathML
 * Renders in native MathML, Web fonts and Image fonts depending on the browser capabilities.
 
 ### Requirements: ###
-* phpBB3 v3.0.9. Working with v3.0.10.
+* phpBB3 v3.0.9 or superior.
 * The [MathJax library][5] accessible from the forum web path or the ability to accept the [CDN TOS][6].
 
 ### Instalation: ###
