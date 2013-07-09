@@ -1,2 +1,3 @@
 contrib/images export-ignore
 .gitattributes export-ignore
+modx-*.xsd export-ignore
