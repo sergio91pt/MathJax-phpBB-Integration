@@ -5,6 +5,10 @@
 
 phpBB modification that enables users to post beautiful math in LaTeX and MathML, rendered in all major browsers using the MathJax JavaScript Library.
 
+Compatible with phpBB v3.0.9 to v3.0.12.
+
+For phpBB v3.1.3 check [this repository][10].
+
 ## Features: ##
 * Uses the phpBB BBCode system.
 * Multiple BBCodes can be used with static preview texts.
@@ -36,4 +40,5 @@ phpBB modification that enables users to post beautiful math in LaTeX and MathML
  [6]: http://www.mathjax.org/download/mathjax-cdn-terms-of-service/
  [7]: http://www.phpbb.com/mods/automod/
  [8]: https://github.com/sergio91pt/MathJax-phpBB-Integration/wiki
+ [10]: https://github.com/marcovo/phpbb_mathjax
  [9]: https://github.com/sergio91pt/MathJax-phpBB-Integration/raw/master/contrib/images/screenshot2.png
